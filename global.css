@@ -1,0 +1,192 @@
+body {
+    text-align: center;
+    padding: 20px 10px; 
+    font-family: sans-serif; 
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 0.9em;
+}
+
+nav {
+    background-color: transparent;
+    padding: 8px; 
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: inline-block; 
+    transition: transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+nav a:hover {
+    transform: translateY(-1px);
+}
+
+#container {
+    max-width: 450px; 
+    margin: 0 auto; 
+    text-align: left;
+}
+
+.disclaimer {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    font-size: 0.1em;
+    margin-bottom: 5px;
+    color: #000;
+    letter-spacing: 0.5px;
+}
+
+.section h3 {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 3px;
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-list li {
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.item-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.88em;
+}
+
+.item-link:hover {
+    text-decoration: underline;
+}
+
+.item-desc {
+    display: block;
+    font-size: 0.78em;
+    color: #777;
+    margin-top: 2px;
+}
+
+.instructor-info {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.instructor-info a {
+    color: #444;
+    text-decoration: underline;
+}
+
+.credit {
+    font-size: 0.78em;
+    color: #999;
+}
+
+.credit::before {
+    content: " — ";
+    color: #ccc;
+}
+
+.date {
+    font-weight: bold;
+    color: #000;
+    margin-right: 5px;
+}
+
+.hidden-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    cursor: default;
+}
+
+.trip-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.featured-image-container {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.featured-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+}
+
+.image-caption {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 8px;
+    text-align: left;
+}
+
+#content {
+    max-width: 700px; 
+    margin: 0 auto; 
+    text-align: left;
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+#content p {
+    margin-bottom: 20px;
+}
+
+/* Base settings for the background layer */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.2; 
+    background-size: cover; 
+    background-position: top center; 
+    background-repeat: no-repeat;
+}
+
+/* Mobile Backgrounds (Default) */
+.home-page::before { background-image: url('images/nemo.standing.jpg'); }
+.projects-page::before { background-image: url('images/nemo.flag.jpg'); }
+.research-page::before { background-image: url('images/nemo.looking.jpg'); }
+
+/* PC/Desktop Backgrounds (Screens wider than 768px) */
+@media (min-width: 769px) {
+    .home-page::before { background-image: url('images/homepage.pc.png'); }
+    .projects-page::before { background-image: url('images/project.page.pc.png'); }
+    .research-page::before { background-image: url('images/research.page.pc.png'); }
+}
