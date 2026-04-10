@@ -1,27 +1,31 @@
 body {
     text-align: center;
-    padding: 20px 10px; 
-    font-family: sans-serif; 
+    padding: 20px 10px;
+    font-family: sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    font-size: 0.9em;
+    font-size: 1.1em;
 }
 
 nav {
     background-color: transparent;
-    padding: 8px; 
+    padding: 8px 4px;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 nav a {
-    margin: 0 10px;
+    margin: 0 6px;
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    display: inline-block; 
+    display: inline-block;
     transition: transform 0.3s ease;
-    font-size: 0.9em;
+    font-size: 1em;
+    white-space: nowrap;
 }
 
 nav a:hover {
@@ -29,13 +33,13 @@ nav a:hover {
 }
 
 #container {
-    max-width: 450px; 
-    margin: 0 auto; 
+    max-width: 550px;
+    margin: 0 auto;
     text-align: left;
 }
 
 .disclaimer {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #666;
     margin-bottom: 30px;
     line-height: 1.5;
@@ -47,14 +51,14 @@ nav a:hover {
 }
 
 .section h2 {
-    font-size: 0.1em;
+    font-size: 1.2em;
     margin-bottom: 5px;
     color: #000;
     letter-spacing: 0.5px;
 }
 
 .section h3 {
-    font-size: 0.7em;
+    font-size: 0.85em;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #888;
@@ -70,15 +74,15 @@ nav a:hover {
 }
 
 .item-list li {
-    margin-bottom: 10px;
-    line-height: 1.2;
+    margin-bottom: 12px;
+    line-height: 1.3;
 }
 
 .item-link {
     text-decoration: none;
     color: #000;
     font-weight: 600;
-    font-size: 0.88em;
+    font-size: 1.05em;
 }
 
 .item-link:hover {
@@ -87,13 +91,13 @@ nav a:hover {
 
 .item-desc {
     display: block;
-    font-size: 0.78em;
+    font-size: 0.9em;
     color: #777;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .instructor-info {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #666;
     margin-bottom: 15px;
     line-height: 1.4;
@@ -105,7 +109,7 @@ nav a:hover {
 }
 
 .credit {
-    font-size: 0.78em;
+    font-size: 0.85em;
     color: #999;
 }
 
@@ -127,14 +131,14 @@ nav a:hover {
 }
 
 .trip-meta {
-    font-size: 0.85em;
+    font-size: 0.95em;
     color: #777;
     margin-bottom: 20px;
     display: block;
 }
 
 .featured-image-container {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto 40px auto;
 }
 
@@ -146,25 +150,24 @@ nav a:hover {
 }
 
 .image-caption {
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: #666;
     margin-top: 8px;
     text-align: left;
 }
 
 #content {
-    max-width: 700px; 
-    margin: 0 auto; 
+    max-width: 800px;
+    margin: 0 auto;
     text-align: left;
-    line-height: 1.6;
-    font-size: 0.95em;
+    line-height: 1.7;
+    font-size: 1.1em;
 }
 
 #content p {
     margin-bottom: 20px;
 }
 
-/* Base settings for the background layer */
 body::before {
     content: "";
     position: fixed;
@@ -173,20 +176,26 @@ body::before {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    opacity: 0.2; 
-    background-size: cover; 
-    background-position: top center; 
+    opacity: 0.2;
+    background-size: cover;
+    background-position: top center;
     background-repeat: no-repeat;
 }
 
-/* Mobile Backgrounds (Default) */
 .home-page::before { background-image: url('images/nemo.standing.jpg'); }
 .projects-page::before { background-image: url('images/nemo.flag.jpg'); }
 .research-page::before { background-image: url('images/nemo.looking.jpg'); }
 
-/* PC/Desktop Backgrounds (Screens wider than 768px) */
 @media (min-width: 769px) {
-    .home-page::before { background-image: url('images/homepage.pc.png'); }
+    .home-page::before { background-image: url('images/home.page.pc.png'); }
     .projects-page::before { background-image: url('images/project.page.pc.png'); }
     .research-page::before { background-image: url('images/research.page.pc.png'); }
+    nav a { margin: 0 10px; }
+}
+
+@media (max-width: 480px) {
+    nav a {
+        font-size: 0.9em;
+        margin: 0 4px;
+    }
 }
