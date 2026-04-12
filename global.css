@@ -176,7 +176,7 @@ body::before {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    opacity: 0.2;
+    opacity: 0.1;
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -187,8 +187,8 @@ body::before {
 .research-page::before { background-image: url('images/nemo.looking.jpg'); }
 
 @media (min-width: 769px) {
-    .home-page::before { background-image: url('images/home.page.pc.png'); }
-    .projects-page::before { background-image: url('images/project.page.pc.png'); }
+    .home-page::before { background-image: url('images/index.page.pc.png'); }
+    .projects-page::before { background-image: url('images/projects.page.pc.png'); }
     .research-page::before { background-image: url('images/research.page.pc.png'); }
     nav a { margin: 0 10px; }
 }
@@ -244,4 +244,59 @@ body::before {
     letter-spacing: 1.5px;
     color: #888;
     margin-top: 15px;
+}
+
+/* Handwritten Quote Section */
+.quote-container {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+}
+
+.handwritten-quote {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8em;
+    line-height: 1.2;
+    color: #444;
+    opacity: 0.9;
+
+    transform: rotate(-1deg);
+}
+
+@media (max-width: 480px) {
+    .handwritten-quote {
+        font-size: 1.4em;
+    }
+    .quote-container {
+        top: 30%;
+    }
+}
+
+/* button */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 550px;
+    margin: 0 auto 20px;
+}
+
+.cv-button {
+    padding: 6px 14px;
+    border: 1px solid #333;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.cv-button:hover {
+    background: #333;
+    color: #fff;
 }

@@ -3,159 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project #120</title>
+  <title>Project 120 | Summer Challenge</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: system-ui, sans-serif;
-      background: black;
-      color: white;
+    :root {
+      --accent: #ffcc00;
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
     }
+
+    * { box-sizing: border-box; }
 
     body {
-      overflow-y: auto;
-      text-align: center;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    .top-section {
+    /* Hero Section */
+    .hero {
       position: relative;
       height: 100vh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; 
-      padding: 20rem 2rem 5rem; 
-      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--bg)),
+                  url('images/Beer.jpeg') no-repeat center center/cover;
     }
 
-    .background-image {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('images/Beer.jpeg') no-repeat center center;
-      background-size: cover;
-      filter: brightness(0.7);
-      z-index: 0;
-      opacity: 0.2;
+    .hero-content {
+      z-index: 2;
+      max-width: 900px;
     }
 
-    .slogan {
-      font-size: 4rem; 
+    h1 {
+      font-size: clamp(3rem, 10vw, 6rem);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      line-height: 0.9;
+    }
+
+    .accent-text { color: var(--accent); }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: #bbb;
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+
+    /* Button */
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent);
+      color: black;
+      text-decoration: none;
       font-weight: bold;
-      text-shadow:
-        2px 2px 8px rgba(0,0,0,0.8),
-        0 0 10px rgba(0,0,0,0.6);
-      user-select: none;
-      z-index: 10;
-      margin-bottom: 1rem;
+      border-radius: 50px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .description-text {
-      font-size: 1.8rem; 
-      font-style: italic;
-      line-height: 1.4;
-      color: #ccc;
-      max-width: 1400px;
-      margin: 0 auto 3rem auto;
-      user-select: none;
-      z-index: 10;
-      padding: 0 1rem;
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3);
     }
 
-    .content-section {
-      background: black;
-      padding: 5rem 2rem 12rem;
-      min-height: 100vh;
+    /* Info Section */
+    .details {
+      padding: 10rem 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 4rem;
+    }
+
+    .app-card {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3rem;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
     }
 
     .app-icon {
-      width: 250px; 
-      height: 250px;
-      border-radius: 50%;
-      background: url('images/iTunesArtwork@2x.png') no-repeat center center;
-      background-size: contain;
-      box-shadow:
-        0 0 30px 5px rgba(255, 255, 255, 0.4);
-      margin: 4rem auto 0;
+      width: 120px;
+      height: 120px;
+      margin: -6rem auto 2rem;
+      border-radius: 30px;
+      background: url('images/iTunesArtwork@2x.png') center/cover;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    .project-text {
-      font-size: 5rem; 
-      font-weight: bold;
-      text-shadow:
-        2px 2px 8px rgba(0,0,0,0.8),
-        0 0 10px rgba(0,0,0,0.6);
-      user-select: none;
-    }
-
-    .winner-quote {
-      font-size: 1.8rem; 
+    .quote {
       font-style: italic;
-      line-height: 1.4;
-      color: #ccc;
-      margin-top: 2rem;
-      max-width: 700px;
-      user-select: none;
+      font-size: 1.2rem;
+      color: #888;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-top: 3rem;
+      text-align: left;
     }
 
-    @media (max-width: 600px) {
-      .top-section {
-        padding: 5rem 1.5rem 3rem; 
-        justify-content: flex-start; 
-        height: auto; 
-      }
-
-      .description-text {
-        max-width: 95vw; 
-      }
-
-      .app-icon {
-        width: 200px; 
-        height: 200px;
-        margin: 3rem auto 0;
-      }
-
-      .content-section {
-        padding: 4rem 1rem 10rem;
-      }
-
-      .winner-quote {
-        max-width: 90vw;
-      }
-
-      .project-text {
-        font-size: clamp(2.5rem, 8vw, 5rem);
-        margin: 1rem 0;
-      }
+    footer {
+      padding: 4rem;
+      opacity: 0.3;
+      font-size: 0.8rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="top-section">
-    <div class="background-image"></div>
-    <div class="slogan">Take a break, have 120 beers</div>
-    <div class="description-text">
-      Project120 is all about having the best summer with your buddies.<br>See who can finish 120 beers and come out on top.<br>
-      Track every beer, challenge your friends, and make memories worth remembering.<br>
-      No fluff, no gimmicks - just good times, friendly competition, and plenty of cold ones.<br>
-      Ready to prove you've got what it takes? Let's get started.
-    </div>
-  </div>
 
-  <section class="content-section">
-    <div class="app-icon"></div>
-    <div class="project-text">PROJECT120</div>
-    <div class="winner-quote">
-      "Ja bych tak chtel zpatky karantenu to byl paradoxne takovej freedom"<br><br>
-      - Štěpán, 2025 Winner
+  <section class="hero">
+    <div class="hero-content">
+      <h1>TAKE A BREAK.<br>HAVE <span class="accent-text">120</span> BEERS.</h1>
+      <p class="subtitle">Track every bottle. Challenge the crew. See who's the bigger man.</p>
+      <a href="#" class="cta-button">JOIN THE CHALLENGE</a>
     </div>
   </section>
+
+  <section class="details">
+    <div class="app-card">
+      <div class="app-icon"></div>
+      <h2 style="letter-spacing: 2px;">PROJECT120</h2>
+      <p>No fluff. No gimmicks. Just some cold ones and friendly competition. Track your progress and see who stands tall at the end of each season.</p>
+      
+      <div class="quote">
+        "Ja bych tak chtel zpatky karantenu to byl paradoxne takovej freedom"
+        <br><small>— Štěpán, 2025 Winner</small>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 PROJECT120. Drink Responsibly.
+  </footer>
+
 </body>
 </html>
