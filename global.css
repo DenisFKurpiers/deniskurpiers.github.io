@@ -199,3 +199,49 @@ body::before {
         margin: 0 4px;
     }
 }
+
+/* Progress Tracker */
+.fixed-tracker {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 550px;
+}
+
+.progress-container {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 12px;
+    width: 100%;
+    position: relative;
+}
+
+.progress-fill {
+    background-color: #7c7c7c;
+    height: 100%;
+    border-radius: 4px;
+    position: relative;
+    transition: width 0.5s ease-in-out;
+}
+
+.plane-icon {
+    position: absolute;
+    /* Use left: 0 for 0% progress; switch to right: -15px when width > 0% */
+    left: 0; 
+    top: -70px;   
+    width: 80px;  
+    height: auto;
+    transform: translateY(25%); 
+}
+
+.goal-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+    margin-top: 15px;
+}
