@@ -1,3 +1,4 @@
+/* --- 1. Global Styles --- */
 body {
   text-align: center;
   padding: 20px 10px;
@@ -7,14 +8,29 @@ body {
   font-size: 1.1em;
 }
 
+/* Base layer for background images */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* --- 2. Navigation --- */
 nav {
-  background-color: transparent;
-  padding: 8px 4px;
-  text-align: center;
-  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+  background-color: transparent;
+  padding: 8px 4px;
+  margin-bottom: 40px;
 }
 
 nav a {
@@ -22,7 +38,6 @@ nav a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
-  display: inline-block;
   transition: transform 0.3s ease;
   font-size: 1em;
   white-space: nowrap;
@@ -32,20 +47,37 @@ nav a:hover {
   transform: translateY(-1px);
 }
 
-#container {
+/* --- 3. Layout Containers --- */
+#container, .header-container {
   max-width: 550px;
   margin: 0 auto;
+}
+
+#container {
   text-align: left;
 }
 
-.disclaimer {
-  font-size: 0.9em;
-  color: #666;
-  margin-bottom: 30px;
-  line-height: 1.5;
-  font-style: italic;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
+#content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.7;
+  font-size: 1.1em;
+}
+
+#content p {
+  margin-bottom: 20px;
+}
+
+/* --- 4. Typography & Sections --- */
 .section {
   margin-bottom: 40px;
 }
@@ -57,6 +89,7 @@ nav a:hover {
   letter-spacing: 0.5px;
 }
 
+/* Subheaders with bottom border */
 .section h3 {
   font-size: 0.85em;
   text-transform: uppercase;
@@ -67,6 +100,15 @@ nav a:hover {
   padding-bottom: 3px;
 }
 
+.disclaimer {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* --- 5. Item Lists & Links --- */
 .item-list {
   list-style: none;
   padding: 0;
@@ -96,137 +138,22 @@ nav a:hover {
   margin-top: 3px;
 }
 
-.instructor-info {
-  font-size: 0.9em;
-  color: #666;
-  margin-bottom: 15px;
-  line-height: 1.4;
-}
-
-.instructor-info a {
-  color: #444;
-  text-decoration: underline;
-}
-
-.credit {
-  font-size: 0.85em;
-  color: #999;
-}
-
-.credit::before {
-  content: " — ";
-  color: #ccc;
-}
-
-.date {
-  font-weight: bold;
-  color: #000;
-  margin-right: 5px;
-}
-
-.hidden-link {
-  text-decoration: none !important;
-  color: inherit !important;
-  cursor: default;
-}
-
-.trip-meta {
-  font-size: 0.95em;
-  color: #777;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.featured-image-container {
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-}
-
-.featured-image-container img {
-  width: 100%;
-  height: auto;
+/* --- 6. Specific Components --- */
+/* CV Button styling */
+.cv-button {
+  padding: 6px 14px;
+  border: 1px solid #333;
+  text-decoration: none;
+  color: #333;
   border-radius: 4px;
-  display: block;
+  font-size: 0.8em;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
 }
 
-.image-caption {
-  font-size: 0.85em;
-  color: #666;
-  margin-top: 8px;
-  text-align: left;
-}
-
-#content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-  line-height: 1.7;
-  font-size: 1.1em;
-}
-
-#content p {
-  margin-bottom: 20px;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  opacity: 0.2;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Background Assignments */
-.home-page::before { background-image: url('images/tree.phone.png'); }
-.projects-page::before { background-image: url('images/bird.phone.png'); }
-.research-page::before { background-image: url('images/fjord.phone.png'); }
-
-/* Engineering Background (Mobile Default) */
-.engineering-page::before {
-  background-image: url('images/bumblebee.cut.gif');
-  background-repeat: no-repeat;
-  background-size: 150px;
-  background-position: right 10% bottom 25%;
-  opacity: 1;
-}
-
-@media (min-width: 769px) {
-  .home-page::before { background-image: url('images/tree.pc.png'); }
-  .projects-page::before { background-image: url('images/bird.pc.png'); }
-  .research-page::before { background-image: url('images/fjord.pc.png'); }
-  
-  .engineering-page::before {
-    background-size: 250px;
-    background-position: right 15% top 25%;
-  }
-
-  nav a { margin: 0 10px; }
-}
-
-@media (max-width: 480px) {
-  nav a {
-    font-size: 0.9em;
-    margin: 0 4px;
-  }
-  
-  /* Fix: contain ensures whitespace is preserved; bottom right anchors the file corner */
-  .home-page::before,
-  .projects-page::before,
-  .research-page::before {
-    background-position: bottom right;
-    background-size: contain;
-    background-attachment: scroll;
-  }
-  
-  .engineering-page::before {
-    background-attachment: scroll;
-  }
+.cv-button:hover {
+  background: #333;
+  color: #fff;
 }
 
 /* Progress Tracker */
@@ -243,38 +170,16 @@ body::before {
   background-color: #e0e0e0;
   border-radius: 4px;
   height: 20px;
-  width: 100%;
-  position: relative;
 }
 
 .progress-fill {
   background-color: #7c7c7c;
   height: 100%;
   border-radius: 4px;
-  position: relative;
   transition: width 0.5s ease-in-out;
 }
 
-.plane-icon {
-  position: absolute;
-  left: 0;
-  top: -110px;
-  width: 120px;
-  height: auto;
-  transform: translateY(25%);
-}
-
-.goal-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75em;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #888;
-  margin-top: 15px;
-}
-
-/* Handwritten Quote Section */
+/* Quote Section */
 .quote-container {
   position: absolute;
   top: 35%;
@@ -293,37 +198,44 @@ body::before {
   transform: rotate(-1deg);
 }
 
+/* --- 7. Background Logic --- */
+.home-page::before { background-image: url('images/tree.phone.png'); }
+.projects-page::before { background-image: url('images/bird.phone.png'); }
+.research-page::before { background-image: url('images/fjord.phone.png'); }
+
+.engineering-page::before {
+  background-image: url('images/bumblebee.cut.gif');
+  background-size: 150px;
+  background-position: right 10% bottom 25%;
+  opacity: 1;
+}
+
+/* --- 8. Media Queries --- */
+/* Desktop Adjustments */
+@media (min-width: 769px) {
+  .home-page::before { background-image: url('images/tree.pc.png'); }
+  .projects-page::before { background-image: url('images/bird.pc.png'); }
+  .research-page::before { background-image: url('images/fjord.pc.png'); }
+  
+  .engineering-page::before {
+    background-size: 250px;
+    background-position: right 15% top 25%;
+  }
+
+  nav a { margin: 0 10px; }
+}
+
+/* Mobile Adjustments */
 @media (max-width: 480px) {
-  .handwritten-quote {
-    font-size: 1.4em;
+  nav a { font-size: 0.9em; }
+  
+  .home-page::before,
+  .projects-page::before,
+  .research-page::before {
+    background-position: bottom right;
+    background-size: contain;
   }
-  .quote-container {
-    top: 30%;
-  }
-}
-
-/* button */
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  max-width: 550px;
-  margin: 0 auto 20px;
-}
-
-.cv-button {
-  padding: 6px 14px;
-  border: 1px solid #333;
-  text-decoration: none;
-  color: #333;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: bold;
-  transition: background 0.3s, color 0.3s;
-}
-
-.cv-button:hover {
-  background: #333;
-  color: #fff;
+  
+  .handwritten-quote { font-size: 1.4em; }
+  .quote-container { top: 30%; }
 }
