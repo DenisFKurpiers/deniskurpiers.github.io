@@ -192,7 +192,7 @@ body::before {
     background-image: url('images/bumblebee.cut.gif'); 
     background-repeat: no-repeat;
     background-size: 130px;
-    background-position: right 5% bottom 30%; 
+    background-position: right 10% bottom 40%; 
     opacity: 1;
 }
 
