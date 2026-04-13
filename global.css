@@ -11,7 +11,6 @@ body {
   margin: 0;
 }
 
-/* Base Full-Screen Background Layer */
 body::before {
   content: "";
   position: fixed;
@@ -26,12 +25,11 @@ body::before {
   background-repeat: no-repeat;
 }
 
-/* Background Image Assignments */
+/* Background Assignments */
 .home-page::before { background-image: url('images/tree.phone.png'); }
 .projects-page::before { background-image: url('images/bird.phone.png'); }
 .research-page::before { background-image: url('images/fjord.phone.png'); }
 
-/* Specific Engineering Background (Animated Bee) */
 .engineering-page::before {
   background-image: url('images/bumblebee.cut.gif');
   background-repeat: no-repeat;
@@ -41,8 +39,26 @@ body::before {
 }
 
 /* ============================================================
-   2. NAVIGATION & HEADER
+   2. LINKS & NAVIGATION
    ============================================================ */
+a, 
+.instructor-info a {
+  color: #000 !important;
+  text-decoration: none;
+}
+
+
+.hidden-link {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: default;
+  pointer-events: auto;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 nav {
   display: flex;
   justify-content: center;
@@ -56,8 +72,6 @@ nav a {
   margin: 0 6px;
   font-size: 1em;
   font-weight: bold;
-  color: #333;
-  text-decoration: none;
   white-space: nowrap;
   display: inline-block;
   transition: transform 0.3s ease;
@@ -67,23 +81,12 @@ nav a:hover {
   transform: translateY(-1px);
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  max-width: 550px;
-  margin: 0 auto 20px;
-}
-
 .cv-button {
   padding: 6px 14px;
   font-size: 0.8em;
   font-weight: bold;
-  color: #333;
   border: 1px solid #333;
   border-radius: 4px;
-  text-decoration: none;
   transition: background 0.3s, color 0.3s;
 }
 
@@ -99,14 +102,6 @@ nav a:hover {
   max-width: 550px;
   margin: 0 auto;
   text-align: left;
-}
-
-#content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-  line-height: 1.7;
-  font-size: 1.1em;
 }
 
 .section {
@@ -130,7 +125,7 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-/* Lists and Links */
+/* List Items: Bolded to match Nav/Date */
 .item-list {
   list-style: none;
   padding: 0;
@@ -143,14 +138,9 @@ nav a:hover {
 }
 
 .item-link {
-  font-weight: 600;
+  font-weight: bold; 
   font-size: 1.05em;
-  color: #000;
-  text-decoration: none;
-}
-
-.item-link:hover {
-  text-decoration: underline;
+  color: #000 !important;
 }
 
 .item-desc {
@@ -158,13 +148,12 @@ nav a:hover {
   font-size: 0.9em;
   color: #777;
   margin-top: 3px;
+  font-weight: normal;
 }
 
 /* ============================================================
-   4. COMPONENTS (Progress Tracker, Quotes, Meta)
+   4. COMPONENTS (Tracker, Quotes, Images)
    ============================================================ */
-
-/* Progress Tracker */
 .fixed-tracker {
   position: absolute;
   top: 60%;
@@ -178,7 +167,6 @@ nav a:hover {
   background-color: #e0e0e0;
   border-radius: 4px;
   height: 20px;
-  width: 100%;
   position: relative;
 }
 
@@ -186,30 +174,17 @@ nav a:hover {
   background-color: #7c7c7c;
   height: 100%;
   border-radius: 4px;
-  position: relative;
-  transition: width 0.5s ease-in-out;
 }
 
 .plane-icon {
   position: absolute;
   left: 0;
-  top: -110px;
-  width: 120px;
+  top: -70px;
+  width: 80px; 
   height: auto;
   transform: translateY(25%);
 }
 
-.goal-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75em;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #888;
-  margin-top: 15px;
-}
-
-/* Quotes */
 .quote-container {
   position: absolute;
   top: 35%;
@@ -228,7 +203,6 @@ nav a:hover {
   transform: rotate(-1deg);
 }
 
-/* Images & Captions */
 .featured-image-container {
   max-width: 800px;
   margin: 0 auto 40px auto;
@@ -241,36 +215,17 @@ nav a:hover {
   display: block;
 }
 
-.image-caption {
-  font-size: 0.85em;
-  color: #666;
-  margin-top: 8px;
-  text-align: left;
-}
-
-/* Misc Meta/Info */
-.disclaimer, .instructor-info {
-  font-size: 0.9em;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 20px;
-}
-
-.disclaimer { font-style: italic; }
-
-.trip-meta {
-  font-size: 0.95em;
-  color: #777;
-  display: block;
-  margin-bottom: 20px;
+.date {
+  font-weight: bold;
+  color: #000;
+  margin-right: 5px;
 }
 
 .credit { font-size: 0.85em; color: #999; }
 .credit::before { content: " — "; color: #ccc; }
-.date { font-weight: bold; color: #000; margin-right: 5px; }
 
 /* ============================================================
-   5. RESPONSIVE DESIGN (Media Queries)
+   5. RESPONSIVE DESIGN
    ============================================================ */
 
 /* Desktop / Tablets */
@@ -284,29 +239,6 @@ nav a:hover {
     background-position: right 15% top 25%;
   }
 
+  .plane-icon { width: 100px; top: -90px; }
   nav a { margin: 0 10px; }
-}
-
-/* Mobile Phones */
-@media (max-width: 480px) {
-  nav a {
-    font-size: 0.9em;
-    margin: 0 4px;
-  }
-
-  .handwritten-quote { font-size: 1.4em; }
-  .quote-container { top: 30%; }
-
-  
-  .home-page::before,
-  .projects-page::before,
-  .research-page::before {
-    background-position: 50% 100%; 
-    background-size: contain;
-    background-attachment: scroll;
-  }
-
-  .engineering-page::before {
-    background-attachment: scroll;
-  }
 }
