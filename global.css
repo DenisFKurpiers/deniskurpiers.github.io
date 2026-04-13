@@ -191,8 +191,8 @@ body::before {
 .engineering-page::before { 
     background-image: url('images/bumblebee.cut.gif'); 
     background-repeat: no-repeat;
-    background-size: 150px;
-    background-position: right 5% bottom 5%;
+    background-size: contain; /* Changed from fixed px to contain */
+    background-position: right 10% bottom 15%; /* Adjusted for safe area */
     opacity: 1;
 }
 
@@ -201,7 +201,6 @@ body::before {
     .projects-page::before { background-image: url('images/bird.pc.png'); }
     .research-page::before { background-image: url('images/fjord.pc.png'); }
     
-    /* Engineering Background (PC) */
     .engineering-page::before {
         background-size: 250px;
         background-position: right 15% top 25%;
@@ -216,8 +215,15 @@ body::before {
         margin: 0 4px;
     }
     body::before {
-        background-position: bottom center; 
+        /* Centering ensures background subjects don't vanish below the viewport */
+        background-position: center center; 
         background-attachment: scroll;      
+    }
+    
+    .engineering-page::before {
+        /* Ensure bumblebee scales properly on narrow screens */
+        background-size: 120px;
+        background-position: right 5% bottom 15%;
     }
 }
 
