@@ -1,14 +1,17 @@
-/* --- 1. Global Styles --- */
+/* ============================================================
+   1. GLOBAL & BODY STYLES
+   ============================================================ */
 body {
+  font-family: sans-serif;
+  font-size: 1.1em;
+  color: #333;
+  background-color: #ffffff;
   text-align: center;
   padding: 20px 10px;
-  font-family: sans-serif;
-  background-color: #ffffff;
-  color: #333;
-  font-size: 1.1em;
+  margin: 0;
 }
 
-/* Base layer for background images */
+/* Base Full-Screen Background Layer */
 body::before {
   content: "";
   position: fixed;
@@ -23,7 +26,23 @@ body::before {
   background-repeat: no-repeat;
 }
 
-/* --- 2. Navigation --- */
+/* Background Image Assignments */
+.home-page::before { background-image: url('images/tree.phone.png'); }
+.projects-page::before { background-image: url('images/bird.phone.png'); }
+.research-page::before { background-image: url('images/fjord.phone.png'); }
+
+/* Specific Engineering Background (Animated Bee) */
+.engineering-page::before {
+  background-image: url('images/bumblebee.cut.gif');
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-position: right 10% bottom 25%;
+  opacity: 1;
+}
+
+/* ============================================================
+   2. NAVIGATION & HEADER
+   ============================================================ */
 nav {
   display: flex;
   justify-content: center;
@@ -35,26 +54,17 @@ nav {
 
 nav a {
   margin: 0 6px;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: transform 0.3s ease;
   font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
   white-space: nowrap;
+  display: inline-block;
+  transition: transform 0.3s ease;
 }
 
 nav a:hover {
   transform: translateY(-1px);
-}
-
-/* --- 3. Layout Containers --- */
-#container, .header-container {
-  max-width: 550px;
-  margin: 0 auto;
-}
-
-#container {
-  text-align: left;
 }
 
 .header-container {
@@ -62,7 +72,33 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 20px;
+  max-width: 550px;
+  margin: 0 auto 20px;
+}
+
+.cv-button {
+  padding: 6px 14px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.cv-button:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* ============================================================
+   3. MAIN LAYOUT & SECTIONS
+   ============================================================ */
+#container {
+  max-width: 550px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 #content {
@@ -73,42 +109,28 @@ nav a:hover {
   font-size: 1.1em;
 }
 
-#content p {
-  margin-bottom: 20px;
-}
-
-/* --- 4. Typography & Sections --- */
 .section {
   margin-bottom: 40px;
 }
 
 .section h2 {
   font-size: 1.2em;
-  margin-bottom: 5px;
   color: #000;
   letter-spacing: 0.5px;
+  margin-bottom: 5px;
 }
 
-/* Subheaders with bottom border */
 .section h3 {
   font-size: 0.85em;
+  color: #888;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #888;
-  margin-bottom: 10px;
   border-bottom: 1px solid #e0e0e0;
   padding-bottom: 3px;
+  margin-bottom: 10px;
 }
 
-.disclaimer {
-  font-size: 0.9em;
-  color: #666;
-  margin-bottom: 30px;
-  line-height: 1.5;
-  font-style: italic;
-}
-
-/* --- 5. Item Lists & Links --- */
+/* Lists and Links */
 .item-list {
   list-style: none;
   padding: 0;
@@ -121,10 +143,10 @@ nav a:hover {
 }
 
 .item-link {
-  text-decoration: none;
-  color: #000;
   font-weight: 600;
   font-size: 1.05em;
+  color: #000;
+  text-decoration: none;
 }
 
 .item-link:hover {
@@ -138,23 +160,9 @@ nav a:hover {
   margin-top: 3px;
 }
 
-/* --- 6. Specific Components --- */
-/* CV Button styling */
-.cv-button {
-  padding: 6px 14px;
-  border: 1px solid #333;
-  text-decoration: none;
-  color: #333;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: bold;
-  transition: background 0.3s, color 0.3s;
-}
-
-.cv-button:hover {
-  background: #333;
-  color: #fff;
-}
+/* ============================================================
+   4. COMPONENTS (Progress Tracker, Quotes, Meta)
+   ============================================================ */
 
 /* Progress Tracker */
 .fixed-tracker {
@@ -170,16 +178,38 @@ nav a:hover {
   background-color: #e0e0e0;
   border-radius: 4px;
   height: 20px;
+  width: 100%;
+  position: relative;
 }
 
 .progress-fill {
   background-color: #7c7c7c;
   height: 100%;
   border-radius: 4px;
+  position: relative;
   transition: width 0.5s ease-in-out;
 }
 
-/* Quote Section */
+.plane-icon {
+  position: absolute;
+  left: 0;
+  top: -110px;
+  width: 120px;
+  height: auto;
+  transform: translateY(25%);
+}
+
+.goal-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  margin-top: 15px;
+}
+
+/* Quotes */
 .quote-container {
   position: absolute;
   top: 35%;
@@ -198,20 +228,52 @@ nav a:hover {
   transform: rotate(-1deg);
 }
 
-/* --- 7. Background Logic --- */
-.home-page::before { background-image: url('images/tree.phone.png'); }
-.projects-page::before { background-image: url('images/bird.phone.png'); }
-.research-page::before { background-image: url('images/fjord.phone.png'); }
-
-.engineering-page::before {
-  background-image: url('images/bumblebee.cut.gif');
-  background-size: 150px;
-  background-position: right 10% bottom 25%;
-  opacity: 1;
+/* Images & Captions */
+.featured-image-container {
+  max-width: 800px;
+  margin: 0 auto 40px auto;
 }
 
-/* --- 8. Media Queries --- */
-/* Desktop Adjustments */
+.featured-image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+.image-caption {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 8px;
+  text-align: left;
+}
+
+/* Misc Meta/Info */
+.disclaimer, .instructor-info {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.disclaimer { font-style: italic; }
+
+.trip-meta {
+  font-size: 0.95em;
+  color: #777;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.credit { font-size: 0.85em; color: #999; }
+.credit::before { content: " — "; color: #ccc; }
+.date { font-weight: bold; color: #000; margin-right: 5px; }
+
+/* ============================================================
+   5. RESPONSIVE DESIGN (Media Queries)
+   ============================================================ */
+
+/* Desktop / Tablets */
 @media (min-width: 769px) {
   .home-page::before { background-image: url('images/tree.pc.png'); }
   .projects-page::before { background-image: url('images/bird.pc.png'); }
@@ -225,17 +287,26 @@ nav a:hover {
   nav a { margin: 0 10px; }
 }
 
-/* Mobile Adjustments */
+/* Mobile Phones */
 @media (max-width: 480px) {
-  nav a { font-size: 0.9em; }
+  nav a {
+    font-size: 0.9em;
+    margin: 0 4px;
+  }
+
+  .handwritten-quote { font-size: 1.4em; }
+  .quote-container { top: 30%; }
+
   
   .home-page::before,
   .projects-page::before,
   .research-page::before {
-    background-position: bottom right;
+    background-position: 50% 100%; 
     background-size: contain;
+    background-attachment: scroll;
   }
-  
-  .handwritten-quote { font-size: 1.4em; }
-  .quote-container { top: 30%; }
+
+  .engineering-page::before {
+    background-attachment: scroll;
+  }
 }
