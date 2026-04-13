@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Project 120 Dashboard</title>
+	<style>
+		:root {
+			--bg: #10161f;
+			--bg-soft: #182230;
+			--ink: #f4f6f9;
+			--muted: #aeb8c7;
+			--accent: #f7bd2e;
+			--line: rgba(255, 255, 255, 0.12);
+			--ok: #7dd3a7;
+			--danger: #ff8d8d;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+			color: var(--ink);
+			background:
+				radial-gradient(1200px 450px at 10% -10%, #29435f 0%, transparent 60%),
+				radial-gradient(1100px 500px at 100% 0%, #4d3e18 0%, transparent 55%),
+				var(--bg);
+			min-height: 100vh;
+		}
+
+		.wrap {
+			width: min(1120px, 100% - 2rem);
+			margin: 2rem auto 3rem;
+		}
+
+		.topbar {
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+			align-items: center;
+			flex-wrap: wrap;
+			margin-bottom: 1.3rem;
+		}
+
+		.title {
+			margin: 0;
+			font-size: clamp(1.6rem, 4vw, 2.4rem);
+			letter-spacing: 0.02em;
+			text-transform: uppercase;
+		}
+
+		.subtitle {
+			margin: 0.3rem 0 0;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.row {
+			display: flex;
+			gap: 0.65rem;
+			flex-wrap: wrap;
+		}
+
+		.btn {
+			border: 1px solid transparent;
+			border-radius: 999px;
+			padding: 0.62rem 1rem;
+			color: #0b1020;
+			background: var(--accent);
+			font-weight: 700;
+			cursor: pointer;
+			transition: transform 0.2s ease, opacity 0.2s ease;
+		}
+
+		.btn:hover { transform: translateY(-2px); }
+		.btn:disabled { opacity: 0.45; transform: none; cursor: not-allowed; }
+
+		.btn-ghost {
+			color: var(--ink);
+			background: rgba(255, 255, 255, 0.08);
+			border-color: var(--line);
+		}
+
+		.btn-danger {
+			color: #ffdada;
+			background: rgba(255, 80, 80, 0.18);
+			border-color: rgba(255, 120, 120, 0.35);
+		}
+
+		.grid {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+		}
+
+		.card {
+			background: linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			padding: 1rem;
+			backdrop-filter: blur(8px);
+		}
+
+		.span-4 { grid-column: span 4; }
+		.span-8 { grid-column: span 8; }
+		.span-6 { grid-column: span 6; }
+		.span-12 { grid-column: span 12; }
+
+		.section-title {
+			margin: 0 0 0.8rem;
+			color: var(--muted);
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-size: 0.78rem;
+			font-weight: 700;
+		}
+
+		.count {
+			margin: 0;
+			font-size: clamp(2.4rem, 7vw, 3.4rem);
+			line-height: 1;
+			font-weight: 800;
+		}
+
+		.helper {
+			margin: 0.4rem 0 0.9rem;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.progress {
+			width: 100%;
+			height: 11px;
+			border-radius: 999px;
+			background: rgba(255,255,255,0.1);
+			overflow: hidden;
+			margin-bottom: 1rem;
+		}
+
+		.progress > span {
+			display: block;
+			height: 100%;
+			width: 0%;
+			border-radius: inherit;
+			background: linear-gradient(90deg, var(--accent), #ffe59b);
+			transition: width 220ms ease;
+		}
+
+		.status {
+			min-height: 1.2rem;
+			color: var(--muted);
+			font-size: 0.9rem;
+			margin-top: 0.6rem;
+		}
+
+		.leaderboard,
+		.timeline {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: grid;
+			gap: 0.55rem;
+			max-height: 320px;
+			overflow: auto;
+		}
+
+		.leaderboard li,
+		.timeline li {
+			border-radius: 11px;
+			border: 1px solid rgba(255,255,255,0.1);
+			background: rgba(0,0,0,0.14);
+			padding: 0.62rem 0.7rem;
+		}
+
+		.leaderboard li {
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+			gap: 0.6rem;
+			align-items: center;
+		}
+
+		.rank { color: var(--accent); font-weight: 800; min-width: 1.5rem; text-align: center; }
+		.muted { color: var(--muted); }
+
+		.timeline-main {
+			display: flex;
+			justify-content: space-between;
+			gap: 0.7rem;
+			align-items: baseline;
+		}
+
+		.delta-plus { color: var(--ok); font-weight: 700; }
+        .delta-minus { color: var(--danger); font-weight: 700; }
+		.delta-reset { color: var(--danger); font-weight: 700; }
+
+		.chart-wrap {
+			width: 100%;
+			height: 260px;
+			border-radius: 12px;
+			border: 1px solid rgba(255,255,255,0.1);
+			background: rgba(0,0,0,0.14);
+			padding: 0.4rem;
+		}
+
+		#trendChart {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+
+		a.back {
+			color: var(--ink);
+			opacity: 0.88;
+			text-decoration: none;
+			font-size: 0.9rem;
+			border-bottom: 1px dotted rgba(255,255,255,0.6);
+		}
+
+		@media (max-width: 920px) {
+			.span-4, .span-6, .span-8 { grid-column: span 12; }
+			.timeline, .leaderboard { max-height: 260px; }
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="topbar">
+			<div>
+				<h1 class="title">Project120 Dashboard</h1>
+				<p class="subtitle">Live challenge progress, leaderboard, and who cracked one most recently.</p>
+			</div>
+			<div class="row">
+				<a class="back" href="project120.html">Back to landing page</a>
+				<button id="signInBtn" class="btn">Sign In with Google</button>
+				<button id="signOutBtn" class="btn btn-ghost" disabled>Sign Out</button>
+			</div>
+		</div>
+
+		<section class="grid">
+			<article class="card span-4">
+				<h2 class="section-title">Your Counter</h2>
+				<p class="count"><span id="beerCount">0</span> / 120</p>
+				<p class="helper" id="goalText">0% complete</p>
+				<div class="progress"><span id="progressBar"></span></div>
+				<div class="row">
+					<button id="plusOneBtn" class="btn" disabled>+1 Beer</button>
+					<button id="minusOneBtn" class="btn btn-ghost" disabled>-1</button>
+					<button id="resetBtn" class="btn btn-danger" disabled>Reset</button>
+				</div>
+				<p class="helper" id="userLine">Not signed in.</p>
+				<p class="status" id="status">Connecting...</p>
+			</article>
+
+			<article class="card span-8">
+				<h2 class="section-title">Daily Net Change (Last 14 Days)</h2>
+				<div class="chart-wrap">
+					<canvas id="trendChart" width="860" height="240"></canvas>
+				</div>
+			</article>
+
+			<article class="card span-6">
+				<h2 class="section-title">Leaderboard</h2>
+				<ul id="leaderboardList" class="leaderboard"></ul>
+				<p id="leaderboardEmpty" class="muted">No entries yet.</p>
+			</article>
+
+			<article class="card span-6">
+				<h2 class="section-title">Recent Timeline</h2>
+				<ul id="timelineList" class="timeline"></ul>
+				<p id="timelineEmpty" class="muted">No activity yet.</p>
+			</article>
+		</section>
+	</div>
+
+	<script type="module">
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+		import {
+			getAuth,
+			GoogleAuthProvider,
+			onAuthStateChanged,
+			signInWithPopup,
+			signOut
+		} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+		import {
+			getFirestore,
+			addDoc,
+			doc,
+			getDoc,
+			onSnapshot,
+			query,
+			collection,
+			orderBy,
+			limit,
+			setDoc,
+			serverTimestamp,
+			runTransaction
+		} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+		const firebaseConfig = {
+			apiKey: "AIzaSyDE-KwKWT8qsuFmsQIsvtD1YMdFyQfAjAA",
+			authDomain: "project120-a0a78.firebaseapp.com",
+			projectId: "project120-a0a78",
+			storageBucket: "project120-a0a78.firebasestorage.app",
+			messagingSenderId: "479632220358",
+			appId: "1:479632220358:web:e22ffc310728e537be37c7",
+			measurementId: "G-C4L6P1FSKB"
+		};
+
+		const app = initializeApp(firebaseConfig);
+		const auth = getAuth(app);
+		const db = getFirestore(app);
+		const provider = new GoogleAuthProvider();
+
+		const statusEl = document.getElementById("status");
+		const beerCountEl = document.getElementById("beerCount");
+		const goalTextEl = document.getElementById("goalText");
+		const progressBarEl = document.getElementById("progressBar");
+		const userLineEl = document.getElementById("userLine");
+
+		const signInBtn = document.getElementById("signInBtn");
+		const signOutBtn = document.getElementById("signOutBtn");
+		const plusOneBtn = document.getElementById("plusOneBtn");
+		const minusOneBtn = document.getElementById("minusOneBtn");
+		const resetBtn = document.getElementById("resetBtn");
+
+		const leaderboardListEl = document.getElementById("leaderboardList");
+		const leaderboardEmptyEl = document.getElementById("leaderboardEmpty");
+		const timelineListEl = document.getElementById("timelineList");
+		const timelineEmptyEl = document.getElementById("timelineEmpty");
+
+		const chartCanvas = document.getElementById("trendChart");
+		const chartCtx = chartCanvas.getContext("2d");
+
+		let currentUser = null;
+		let unsubscribeOwnProfile = null;
+
+		function setTrackerEnabled(enabled) {
+			plusOneBtn.disabled = !enabled;
+			minusOneBtn.disabled = !enabled;
+			resetBtn.disabled = !enabled;
+			signOutBtn.disabled = !enabled;
+			signInBtn.disabled = enabled;
+		}
+
+		function renderCount(value) {
+			const count = Math.max(0, Number(value || 0));
+			const pct = Math.min(100, Math.round((count / 120) * 100));
+			beerCountEl.textContent = String(count);
+			goalTextEl.textContent = `${pct}% complete`;
+			progressBarEl.style.width = `${pct}%`;
+		}
+
+		function formatRelative(date) {
+			const now = Date.now();
+			const diff = Math.max(0, now - date.getTime());
+			const minute = 60 * 1000;
+			const hour = 60 * minute;
+			const day = 24 * hour;
+			if (diff < minute) return "just now";
+			if (diff < hour) return `${Math.floor(diff / minute)}m ago`;
+			if (diff < day) return `${Math.floor(diff / hour)}h ago`;
+			return `${Math.floor(diff / day)}d ago`;
+		}
+
+		function renderLeaderboard(docs) {
+			leaderboardListEl.innerHTML = "";
+			if (!docs.length) {
+				leaderboardEmptyEl.hidden = false;
+				return;
+			}
+
+			leaderboardEmptyEl.hidden = true;
+			docs.forEach((entry, idx) => {
+				const data = entry.data();
+				const li = document.createElement("li");
+				li.innerHTML = `
+					<span class="rank">#${idx + 1}</span>
+					<span>${data.displayName || "Unknown"}</span>
+					<strong>${Math.max(0, Number(data.count || 0))}</strong>
+				`;
+				leaderboardListEl.appendChild(li);
+			});
+		}
+
+		function renderTimeline(docs) {
+			timelineListEl.innerHTML = "";
+			if (!docs.length) {
+				timelineEmptyEl.hidden = false;
+				return;
+			}
+
+			timelineEmptyEl.hidden = true;
+			docs.forEach((entry) => {
+				const data = entry.data();
+				const at = data.createdAt?.toDate ? data.createdAt.toDate() : new Date();
+				const li = document.createElement("li");
+				const deltaValue = Number(data.delta || 0);
+				const deltaClass = data.eventType === "reset" || deltaValue < 0 ? "delta-reset" : "delta-plus";
+				const deltaText = data.eventType === "reset" ? "reset count" : `${deltaValue > 0 ? "+" : ""}${deltaValue} beer`;
+
+				li.innerHTML = `
+					<div class="timeline-main">
+						<strong>${data.displayName || "Unknown"}</strong>
+						<span class="muted">${formatRelative(at)}</span>
+					</div>
+					<div class="timeline-main">
+						<span class="${deltaClass}">${deltaText}</span>
+						<span class="muted">total ${Math.max(0, Number(data.resultCount || 0))}</span>
+					</div>
+				`;
+				timelineListEl.appendChild(li);
+			});
+		}
+
+		function buildDailySeries(docs, days = 14) {
+			const result = [];
+			const map = new Map();
+			const now = new Date();
+
+			for (let i = days - 1; i >= 0; i -= 1) {
+				const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+				const key = `${day.getFullYear()}-${day.getMonth() + 1}-${day.getDate()}`;
+				map.set(key, { label: `${day.getDate()}.${day.getMonth() + 1}.`, value: 0 });
+			}
+
+			docs.forEach((item) => {
+				const data = item.data();
+				if (data.eventType !== "drink") return;
+				const date = data.createdAt?.toDate ? data.createdAt.toDate() : null;
+				if (!date) return;
+				const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+				if (!map.has(key)) return;
+				const row = map.get(key);
+				row.value += Number(data.delta || 0);
+			});
+
+			map.forEach((value) => result.push(value));
+			return result;
+		}
+
+		function drawTrendChart(points) {
+			const ctx = chartCtx;
+			const width = chartCanvas.width;
+			const height = chartCanvas.height;
+			const padL = 52;
+			const padR = 12;
+			const padT = 12;
+			const padB = 28;
+
+			ctx.clearRect(0, 0, width, height);
+			ctx.fillStyle = "#d6deea";
+			ctx.font = "12px Segoe UI";
+
+			if (!points.length) {
+				ctx.fillText("No data yet", padL, height / 2);
+				return;
+			}
+
+			const minY = Math.min(0, ...points.map((p) => p.value));
+			const maxY_1 = Math.max(0, ...points.map((p) => p.value));
+			const maxY = maxY_1 < 1 ? maxY_1 + 1 : maxY_1;
+
+            const yRange = Math.max(1, maxY - minY);
+			const plotW = width - padL - padR;
+			const plotH = height - padT - padB;
+			const stepX = points.length > 1 ? plotW / (points.length - 1) : plotW;
+			const toY = (value) => padT + ((maxY - value) / yRange) * plotH;
+			const zeroY = toY(0);
+
+            // Creating lines and numbers on y-axis
+			ctx.strokeStyle = "rgba(255,255,255,0.16)";
+			ctx.lineWidth = 1;
+            let lastY = null;
+			for (let i = 0; i <= 4; i += 1) {
+				const y = padT + (plotH / 4) * i;
+				const tickValue = maxY - (i / 4) * yRange;
+				ctx.beginPath();
+				ctx.moveTo(padL, y);
+				ctx.lineTo(width - padR, y);
+				ctx.stroke();
+				ctx.fillStyle = "#9fb0c8";
+                if (y !== lastY && Math.abs(y - lastY) < 14) {
+                    ctx.fillText(String(Math.round(tickValue)), 8, y + 4);
+                }
+			}
+
+			ctx.strokeStyle = "rgba(255,255,255,0.35)";
+			ctx.lineWidth = 1.3;
+			ctx.beginPath();
+			ctx.moveTo(padL, zeroY);
+			ctx.lineTo(width - padR, zeroY);
+			ctx.stroke();
+
+			ctx.strokeStyle = "#f7bd2e";
+			ctx.lineWidth = 2.5;
+			ctx.beginPath();
+			points.forEach((p, i) => {
+				const x = padL + stepX * i;
+				const y = toY(p.value);
+				if (i === 0) ctx.moveTo(x, y);
+				else ctx.lineTo(x, y);
+			});
+			ctx.stroke();
+
+			ctx.fillStyle = "rgba(247, 189, 46, 0.2)";
+			ctx.beginPath();
+			points.forEach((p, i) => {
+				const x = padL + stepX * i;
+				const y = toY(p.value);
+				if (i === 0) ctx.moveTo(x, y);
+				else ctx.lineTo(x, y);
+			});
+			ctx.lineTo(width - padR, zeroY);
+			ctx.lineTo(padL, zeroY);
+			ctx.closePath();
+			ctx.fill();
+
+			ctx.fillStyle = "#d6deea";
+			points.forEach((p, i) => {
+				if (i % 2 !== 0 && i !== points.length - 1) return;
+				const x = padL + stepX * i;
+				ctx.fillText(p.label, x - 12, height - 8);
+			});
+		}
+
+		async function ensureUserDoc(user) {
+			const userRef = doc(db, "users", user.uid);
+			const snap = await getDoc(userRef);
+			if (!snap.exists()) {
+				await setDoc(userRef, {
+					uid: user.uid,
+					displayName: user.displayName || "Unnamed Player",
+					count: 0,
+					updatedAt: serverTimestamp(),
+					createdAt: serverTimestamp()
+				});
+			}
+		}
+
+		async function logActivity(payload) {
+			try {
+				await addDoc(collection(db, "activities"), payload);
+			} catch (_error) {
+				statusEl.textContent = "Count saved, but activity log failed. Update Firestore rules for activities.";
+			}
+		}
+
+		async function updateOwnCount(delta) {
+			if (!currentUser) return;
+			const userRef = doc(db, "users", currentUser.uid);
+
+			const txResult = await runTransaction(db, async (transaction) => {
+				const snap = await transaction.get(userRef);
+				const currentCount = Math.max(0, Number(snap.data()?.count || 0));
+				const nextCount = Math.min(120, Math.max(0, currentCount + delta));
+				if (nextCount === currentCount) return { changed: false, nextCount };
+
+				transaction.set(userRef, {
+					uid: currentUser.uid,
+					displayName: currentUser.displayName || "Unnamed Player",
+					count: nextCount,
+					updatedAt: serverTimestamp()
+				}, { merge: true });
+
+				return { changed: true, nextCount };
+			});
+
+			if (txResult.changed) {
+				await logActivity({
+					uid: currentUser.uid,
+					displayName: currentUser.displayName || "Unnamed Player",
+					eventType: "drink",
+					delta,
+					resultCount: txResult.nextCount,
+					createdAt: serverTimestamp()
+				});
+			}
+		}
+
+		async function resetOwnCount() {
+			if (!currentUser) return;
+			const userRef = doc(db, "users", currentUser.uid);
+			await setDoc(userRef, {
+				uid: currentUser.uid,
+				displayName: currentUser.displayName || "Unnamed Player",
+				count: 0,
+				updatedAt: serverTimestamp()
+			}, { merge: true });
+
+			await logActivity({
+				uid: currentUser.uid,
+				displayName: currentUser.displayName || "Unnamed Player",
+				eventType: "reset",
+				delta: 0,
+				resultCount: 0,
+				createdAt: serverTimestamp()
+			});
+		}
+
+		signInBtn.addEventListener("click", async () => {
+			if (window.location.protocol === "file:") {
+				statusEl.textContent = "Use a local HTTP server (localhost), not file://.";
+				return;
+			}
+
+			try {
+				await signInWithPopup(auth, provider);
+			} catch (error) {
+				if (error?.code === "auth/unauthorized-domain") {
+					statusEl.textContent = "Sign-in blocked: add this domain in Firebase Authorized domains.";
+				} else if (error?.code === "auth/popup-blocked") {
+					statusEl.textContent = "Popup blocked by browser.";
+				} else {
+					statusEl.textContent = `Sign-in failed: ${error.message}`;
+				}
+			}
+		});
+
+		signOutBtn.addEventListener("click", async () => signOut(auth));
+		plusOneBtn.addEventListener("click", async () => updateOwnCount(1));
+		minusOneBtn.addEventListener("click", async () => updateOwnCount(-1));
+		resetBtn.addEventListener("click", async () => resetOwnCount());
+
+		onAuthStateChanged(auth, async (user) => {
+			currentUser = user;
+			if (unsubscribeOwnProfile) {
+				unsubscribeOwnProfile();
+				unsubscribeOwnProfile = null;
+			}
+
+			if (!user) {
+				setTrackerEnabled(false);
+				renderCount(0);
+				userLineEl.textContent = "Not signed in.";
+				statusEl.textContent = "Sign in to track beers.";
+				return;
+			}
+
+			try {
+				await ensureUserDoc(user);
+				setTrackerEnabled(true);
+				userLineEl.textContent = `Signed in as ${user.displayName || user.email || user.uid}`;
+				statusEl.textContent = "Live sync enabled.";
+				unsubscribeOwnProfile = onSnapshot(doc(db, "users", user.uid), (snap) => {
+					if (snap.exists()) {
+						renderCount(snap.data().count);
+					}
+				});
+			} catch (error) {
+				statusEl.textContent = `Profile load failed: ${error.message}`;
+			}
+		});
+
+		onSnapshot(
+			query(collection(db, "users"), orderBy("count", "desc"), limit(20)),
+			(snapshot) => renderLeaderboard(snapshot.docs),
+			(error) => {
+				statusEl.textContent = `Leaderboard error: ${error.message}`;
+			}
+		);
+
+		onSnapshot(
+			query(collection(db, "activities"), orderBy("createdAt", "desc"), limit(200)),
+			(snapshot) => {
+				const docs = snapshot.docs;
+				renderTimeline(docs.slice(0, 30));
+				const daily = buildDailySeries(docs, 14);
+				drawTrendChart(daily);
+			},
+			(error) => {
+				statusEl.textContent = `Timeline error: ${error.message}`;
+			}
+		);
+	</script>
+</body>
+</html>
