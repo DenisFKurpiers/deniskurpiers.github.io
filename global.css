@@ -178,7 +178,7 @@ body::before {
     z-index: -1;
     opacity: 0.2;
     background-size: cover;
-    background-position: center;
+    background-position: center 40%; /* Lifts images up slightly to center them better */
     background-repeat: no-repeat;
 }
 
@@ -191,8 +191,8 @@ body::before {
 .engineering-page::before { 
     background-image: url('images/bumblebee.cut.gif'); 
     background-repeat: no-repeat;
-    background-size: contain; /* Changed from fixed px to contain */
-    background-position: right 10% bottom 15%; /* Adjusted for safe area */
+    background-size: 130px;
+    background-position: right 5% bottom 30%; 
     opacity: 1;
 }
 
@@ -215,15 +215,8 @@ body::before {
         margin: 0 4px;
     }
     body::before {
-        /* Centering ensures background subjects don't vanish below the viewport */
-        background-position: center center; 
+        background-position: center 40%; 
         background-attachment: scroll;      
-    }
-    
-    .engineering-page::before {
-        /* Ensure bumblebee scales properly on narrow screens */
-        background-size: 120px;
-        background-position: right 5% bottom 15%;
     }
 }
 
@@ -300,7 +293,6 @@ body::before {
     }
 }
 
-/* button */
 .header-container {
     display: flex;
     align-items: center;
