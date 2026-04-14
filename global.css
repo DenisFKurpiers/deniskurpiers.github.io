@@ -38,6 +38,13 @@ body::before {
   opacity: 1;
 }
 
+.medical-page::before {
+  background-image: url('images/water.ripple.gif');
+  background-size: 150px;
+  background-position: center;
+  opacity: 1; 
+}
+
 /* ============================================================
    2. LINKS & NAVIGATION
    ============================================================ */
@@ -254,7 +261,7 @@ nav a:hover {
   .research-page::before { background-image: url('images/fjord.pc.png'); }
   
   .engineering-page::before {
-    background-size: 250px;
+    background-size: 200px;
     background-position: right 15% top 25%;
   }
 
