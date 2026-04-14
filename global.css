@@ -125,7 +125,6 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-/* List Items: Bolded to match Nav/Date */
 .item-list {
   list-style: none;
   padding: 0;
@@ -203,6 +202,12 @@ nav a:hover {
   transform: rotate(-1deg);
 }
 
+.goal-text {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
 .featured-image-container {
   max-width: 800px;
   margin: 0 auto 40px auto;
@@ -213,6 +218,20 @@ nav a:hover {
   height: auto;
   border-radius: 4px;
   display: block;
+}
+
+.image-caption {
+  font-size: 0.85em;
+  color: #999;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.trip-meta {
+    display: block;
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 20px;
 }
 
 .date {
