@@ -146,7 +146,7 @@ nav a {
 
 margin: 0 6px;
 
-font-size: 0.85em; 
+font-size: 1em; 
 
 font-weight: bold;
 
@@ -203,28 +203,45 @@ color: #fff;
 
 .languages {
   font-style: italic;
+
   color: #888; 
-  font-size: 0.75em;
+
+  font-size: 0.9em;
+
   list-style: none;
+
   padding: 0;
+
   margin-top: 2px;
+
 }
 
 
 .contact-body {
-  font-size: 0.82em; 
+
+  font-size: 0.9em; 
+
   line-height: 1.5; 
+
   color: #444;
+
   margin-bottom: 8px;
+
   letter-spacing: 0.02em; 
+
 }
 
 
 .email-highlight {
+
   color: #000;
+
   font-weight: 500;
+
   border-bottom: 1px solid #e0e0e0; 
+
   padding: 0 2px;
+
 }
 
 #container {
