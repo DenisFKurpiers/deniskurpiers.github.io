@@ -30,15 +30,37 @@
         .participants-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 6rem; }
         .participant { color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; }
         .participant:hover { color: #fff; }
-        .gallery-minimal { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; height: 400px; margin-bottom: 3rem; }
-        .photo { background: var(--surface); border: 1px solid var(--glass); transition: 0.5s; filter: grayscale(100%); opacity: 0.4; }
-        .photo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
+        
+        /* NOVÉ NASTAVENÍ GALERIE: 2 stejné sloupce */
+        .gallery-duo { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* Dva stejně velké sloupce */
+            gap: 1.5rem; 
+            margin-bottom: 3rem; 
+        }
+        .photo { 
+            background: var(--surface); 
+            border: 1px solid var(--glass); 
+            transition: 0.5s; 
+            filter: grayscale(100%); 
+            opacity: 0.4; 
+            height: 350px; /* Fixní výška pro desktop */
+        }
+        .photo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.01); }
+
         .download-zone { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 4rem 0; }
         .text-link { color: #fff; text-decoration: none; font-weight: 800; font-size: 1rem; border-bottom: 2px solid var(--ctu-blue); padding-bottom: 4px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
         .text-link:hover { color: var(--ctu-blue); border-color: #fff; }
         footer { padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--glass); }
         .footer-logo { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; }
-        @media (max-width: 768px) { nav { display: none; } .gallery-minimal { grid-template-columns: 1fr; height: auto; } .photo { height: 200px; } .winners-row { gap: 2rem; } }
+
+        @media (max-width: 768px) { 
+            nav { display: none; } 
+            /* Na mobilech fotky pod sebou */
+            .gallery-duo { grid-template-columns: 1fr; gap: 1rem; } 
+            .photo { height: 250px; } /* Trochu menší výška na mobilu */
+            .winners-row { gap: 2rem; } 
+        }
     </style>
 </head>
 <body>
@@ -73,21 +95,16 @@
         </section>
 
         <span class="section-label">Fotky</span>
-        <section class="gallery-minimal">
+        <section class="gallery-duo">
+            <div class="photo" style="background-image: url('winners.jpg'); background-size: cover; background-position: center;"></div>
             <div class="photo" style="background-image: url('winners.jpeg'); background-size: cover; background-position: center;"></div>
-            <div class="photo" style="background-image: url('sweats1.jpeg'); background-size: cover; background-position: center;"></div>
-            <div class="photo" style="background-image: url('sweats2.jpeg'); background-size: cover; background-position: center;"></div>
         </section>
 
         <div class="download-zone">
             <a href="priklady2025.pdf" class="text-link">Zadání příkladů 2025</a>
             <a href="https://drive.google.com/drive/folders/1OYizYAxMZDtXlNTnRcn-5NpjnIa7ji_u?usp=sharing" class="text-link" style="font-size: 0.8rem; opacity: 0.6; border-width: 1px;">Kompletní fotogalerie</a>
         </div>
-    </div>
-        </div>
-    </div>
-
-    <footer>
+    </div> <footer>
         <div class="footer-logo">Integration Bee FJFI 2025</div>
     </footer>
 
