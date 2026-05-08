@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finále | Integration Bee FJFI</title>
+    <style>
+        :root {
+            --ctu-blue: #0065BD;
+            --ctu-blue-dark: #004a8b;
+            --bg: #05070a;
+            --surface: #0e121a;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --accent-glow: rgba(0, 101, 189, 0.3);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; z-index: -1; }
+        header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; color: #fff; text-decoration: none; border-left: 3px solid var(--ctu-blue); padding-left: 12px; }
+        nav a { color: var(--text-dim); text-decoration: none; margin-left: 2rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        nav a:hover { color: var(--ctu-blue); }
+        .content { max-width: 1000px; margin: 4rem auto; padding: 0 2rem; }
+        .timeline { display: grid; gap: 2rem; }
+        .event { background: var(--surface); padding: 2.5rem; border-left: 3px solid var(--ctu-blue); border-radius: 0 4px 4px 0; border-top: 1px solid var(--glass); border-right: 1px solid var(--glass); border-bottom: 1px solid var(--glass); }
+        .event h3 { color: var(--ctu-blue); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; font-weight: 800; }
+        footer { padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--glass); }
+        .footer-logo { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; }
+        @media (max-width: 768px) { nav { display: none; } .content { margin: 2rem auto; } .event { padding: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">INTEGRATION BEE FJFI <span style="color: var(--ctu-blue)">2026</span></a>
+        <nav><a href="online.kolo.html">Online Kolo</a><a href="finalove.kolo.html">Finále</a><a href="ceny.html">Ceny</a></nav>
+    </header>
+    <main class="content">
+        <div class="timeline">
+            <div class="event">
+                <h3>Kdy a kde?</h3>
+                <p>Březen 2026, Atrium fakulty FJFI, Břehová 7, Praha 1.</p>
+            </div>
+            <div class="event">
+                <h3>Formát</h3>
+                <p>Souboj 1v1 u tabule. Dva soutěžící, jeden integrál, limit 3 minuty. Kdo první správně spočítá, postupuje dál.</p>
+            </div>
+            <div class="event">
+                <h3>Atmosféra</h3>
+                <p>Live stream, komentátoři a publikum, které vás nenechá v klidu.</p>
+            </div>
+        </div>
+    </main>
+    <footer><div class="footer-logo">České vysoké učení technické v Praze</div></footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archiv 2025 | Integration Bee FJFI</title>
+    <style>
+        :root {
+            --ctu-blue: #0065BD;
+            --ctu-blue-dark: #004a8b;
+            --bg: #05070a;
+            --surface: #0e121a;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --accent-glow: rgba(0, 101, 189, 0.3);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; z-index: -1; }
+        header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1300px; margin: 0 auto; }
+        .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; color: #fff; text-decoration: none; border-left: 3px solid var(--ctu-blue); padding-left: 12px; }
+        nav a { color: var(--text-dim); text-decoration: none; margin-left: 2rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        nav a:hover { color: var(--ctu-blue); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+        .winners-row { display: flex; gap: 4rem; margin-bottom: 6rem; flex-wrap: wrap; border-bottom: 1px solid var(--glass); padding-bottom: 4rem; }
+        .winner-stat .rank { font-size: 0.7rem; color: var(--ctu-blue); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+        .winner-stat .name { font-size: 1.8rem; font-weight: 700; display: block; margin-top: 0.5rem; }
+        .section-label { color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; display: block; }
+        .participants-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 6rem; }
+        .participant { color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; }
+        .participant:hover { color: #fff; }
+        .gallery-minimal { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; height: 400px; margin-bottom: 3rem; }
+        .photo { background: var(--surface); border: 1px solid var(--glass); transition: 0.5s; filter: grayscale(100%); opacity: 0.4; }
+        .photo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.02); }
+        .download-zone { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 4rem 0; }
+        .text-link { color: #fff; text-decoration: none; font-weight: 800; font-size: 1rem; border-bottom: 2px solid var(--ctu-blue); padding-bottom: 4px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+        .text-link:hover { color: var(--ctu-blue); border-color: #fff; }
+        footer { padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--glass); }
+        .footer-logo { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; }
+        @media (max-width: 768px) { nav { display: none; } .gallery-minimal { grid-template-columns: 1fr; height: auto; } .photo { height: 200px; } .winners-row { gap: 2rem; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="integration.bee.html" class="logo">INTEGRATION BEE FJFI <span style="color: var(--ctu-blue)">2026</span></a>
+        <nav><a href="integration.bee.html">Home</a></nav>
+    </header>
+
+    <div class="container">
+        <section class="winners-row">
+            <div class="winner-stat"><span class="rank">1. Místo</span><span class="name">Michal Janík</span></div>
+            <div class="winner-stat"><span class="rank">2. Místo</span><span class="name">Ondřej Koucký</span></div>
+            <div class="winner-stat"><span class="rank">3. Místo</span><span class="name">Adam Vyšinský</span></div>
+            <div class="winner-stat"><span class="rank">4. Místo</span><span class="name">Matyáš Rozínek</span></div>
+        </section>
+
+        <span class="section-label">Finalisté</span>
+        <section class="participants-list">
+            <div class="participant">Michal Kuba</div>
+            <div class="participant">Patrik Štencel</div>
+            <div class="participant">Petr Červenka</div>
+            <div class="participant">Jakub Kliment</div>
+            <div class="participant">Michal Krpata</div>
+            <div class="participant">Jakub Vlček</div>
+            <div class="participant">Soniya Karan</div>
+            <div class="participant">Monika Králová</div>
+            <div class="participant">Mikuláš Kučera</div>
+            <div class="participant">Yurii Ketkov</div>
+            <div class="participant">Sebastian Glonek</div>
+            <div class="participant">Jan Slíva</div>
+        </section>
+
+        <span class="section-label">Fotky</span>
+        <section class="gallery-minimal">
+            <div class="photo" style="background-image: url('winners.jpeg'); background-size: cover; background-position: center;"></div>
+            <div class="photo" style="background-image: url('sweats1.jpeg'); background-size: cover; background-position: center;"></div>
+            <div class="photo" style="background-image: url('sweats2.jpeg'); background-size: cover; background-position: center;"></div>
+        </section>
+
+        <div class="download-zone">
+            <a href="priklady2025.pdf" class="text-link">Zadání příkladů 2025</a>
+            <a href="https://drive.google.com/drive/folders/1OYizYAxMZDtXlNTnRcn-5NpjnIa7ji_u?usp=sharing" class="text-link" style="font-size: 0.8rem; opacity: 0.6; border-width: 1px;">Kompletní fotogalerie</a>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">Integration Bee FJFI 2025</div>
+    </footer>
+
+</body>
+</html>
