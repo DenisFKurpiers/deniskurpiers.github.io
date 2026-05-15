@@ -43,7 +43,26 @@
             transition: 0.5s; 
             opacity: 1; 
             height: 350px; 
+            cursor: pointer; /* Added for interaction hint */
         }
+
+        /* --- LIGHTBOX ADDITIONS --- */
+        .lb-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 7, 10, 0.95);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .lb-overlay.active { display: flex; }
+        .lb-img { max-width: 90%; max-height: 85%; border: 1px solid var(--glass); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .lb-btn {
+            position: absolute; background: none; border: none; color: white;
+            font-size: 2rem; cursor: pointer; padding: 20px; transition: 0.3s;
+        }
+        .lb-btn:hover { color: var(--ctu-blue); }
+        .lb-close { top: 20px; right: 20px; }
+        .lb-prev { left: 20px; }
+        .lb-next { right: 20px; }
+        /* -------------------------- */
 
         .download-zone { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 4rem 0; }
         .text-link { color: #fff; text-decoration: none; font-weight: 800; font-size: 1rem; border-bottom: 2px solid var(--ctu-blue); padding-bottom: 4px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
@@ -53,10 +72,10 @@
 
         @media (max-width: 768px) { 
             nav { display: none; } 
-            
             .gallery-duo { grid-template-columns: 1fr; gap: 1rem; } 
             .photo { height: 250px; } 
             .winners-row { gap: 2rem; } 
+            .lb-btn { font-size: 1.5rem; padding: 10px; }
         }
     </style>
 </head>
@@ -93,17 +112,62 @@
 
         <span class="section-label">Fotky</span>
         <section class="gallery-duo">
-            <div class="photo" style="background-image: url('winners.jpg'); background-size: cover; background-position: center;"></div>
-            <div class="photo" style="background-image: url('winners.jpeg'); background-size: cover; background-position: center;"></div>
+            <div class="photo" onclick="openLightbox(0)" style="background-image: url('winners.jpg'); background-size: cover; background-position: center;"></div>
+            <div class="photo" onclick="openLightbox(1)" style="background-image: url('winners.jpeg'); background-size: cover; background-position: center;"></div>
         </section>
 
         <div class="download-zone">
             <a href="priklady2025.pdf" class="text-link">Zadání příkladů 2025</a>
             <a href="https://drive.google.com/drive/folders/1OYizYAxMZDtXlNTnRcn-5NpjnIa7ji_u?usp=sharing" class="text-link" style="font-size: 0.8rem; opacity: 0.6; border-width: 1px;">Kompletní fotogalerie</a>
         </div>
-    </div> <footer>
+    </div> 
+
+    <!-- Lightbox Structure -->
+    <div id="lightbox" class="lb-overlay" onclick="closeLightbox(event)">
+        <button class="lb-btn lb-close" onclick="closeLightbox(event)">&times;</button>
+        <button class="lb-btn lb-prev" onclick="moveLightbox(-1, event)">&#10094;</button>
+        <img id="lb-canvas" class="lb-img" src="" alt="View">
+        <button class="lb-btn lb-next" onclick="moveLightbox(1, event)">&#10095;</button>
+    </div>
+
+    <footer>
         <div class="footer-logo">Integration Bee FJFI 2025</div>
     </footer>
+
+    <script>
+        const imgSources = ['winners.jpg', 'winners.jpeg'];
+        let currentIdx = 0;
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-canvas');
+
+        function openLightbox(index) {
+            currentIdx = index;
+            lbImg.src = imgSources[currentIdx];
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(e) {
+            if (e.target === lb || e.target.classList.contains('lb-close')) {
+                lb.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function moveLightbox(step, e) {
+            e.stopPropagation();
+            currentIdx = (currentIdx + step + imgSources.length) % imgSources.length;
+            lbImg.src = imgSources[currentIdx];
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (!lb.classList.contains('active')) return;
+            if (e.key === "ArrowLeft") moveLightbox(-1, e);
+            if (e.key === "ArrowRight") moveLightbox(1, e);
+            if (e.key === "Escape") { lb.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        });
+    </script>
 
 </body>
 </html>
