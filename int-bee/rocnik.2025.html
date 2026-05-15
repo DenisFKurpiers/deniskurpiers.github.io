@@ -31,10 +31,9 @@
         .participant { color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; }
         .participant:hover { color: #fff; }
         
-        /* NOVÉ NASTAVENÍ GALERIE: 2 stejné sloupce */
         .gallery-duo { 
             display: grid; 
-            grid-template-columns: 1fr 1fr; /* Dva stejně velké sloupce */
+            grid-template-columns: 1fr 1fr; 
             gap: 1.5rem; 
             margin-bottom: 3rem; 
         }
@@ -42,11 +41,9 @@
             background: var(--surface); 
             border: 1px solid var(--glass); 
             transition: 0.5s; 
-            filter: grayscale(100%); 
-            opacity: 0.4; 
-            height: 350px; /* Fixní výška pro desktop */
+            opacity: 1; 
+            height: 350px; 
         }
-        .photo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.01); }
 
         .download-zone { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 4rem 0; }
         .text-link { color: #fff; text-decoration: none; font-weight: 800; font-size: 1rem; border-bottom: 2px solid var(--ctu-blue); padding-bottom: 4px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
@@ -56,9 +53,9 @@
 
         @media (max-width: 768px) { 
             nav { display: none; } 
-            /* Na mobilech fotky pod sebou */
+            
             .gallery-duo { grid-template-columns: 1fr; gap: 1rem; } 
-            .photo { height: 250px; } /* Trochu menší výška na mobilu */
+            .photo { height: 250px; } 
             .winners-row { gap: 2rem; } 
         }
     </style>
