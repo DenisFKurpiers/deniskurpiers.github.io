@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archiv 2025 | Integration Bee FJFI</title>
+    <!-- Centralized Stylesheet -->
+    <link rel="stylesheet" href="global.css">
+</head>
+<body class="theme-2025">
+
+    <header>
+        <a href="index.html" class="logo">INTEGRATION BEE FJFI <span>2025</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="winners-row">
+            <div class="winner-stat"><span class="rank">1. Místo</span><span class="name">Michal Janík</span></div>
+            <div class="winner-stat"><span class="rank">2. Místo</span><span class="name">Ondřej Koucký</span></div>
+            <div class="winner-stat"><span class="rank">3. Místo</span><span class="name">Adam Vyšinský</span></div>
+            <div class="winner-stat"><span class="rank">4. Místo</span><span class="name">Matyáš Rozínek</span></div>
+        </section>
+
+        <span class="section-label">Finalisté</span>
+        <section class="participants-list">
+            <div class="participant">Michal Kuba</div>
+            <div class="participant">Patrik Štencel</div>
+            <div class="participant">Petr Červenka</div>
+            <div class="participant">Jakub Kliment</div>
+            <div class="participant">Michal Krpata</div>
+            <div class="participant">Jakub Vlček</div>
+            <div class="participant">Soniya Karan</div>
+            <div class="participant">Monika Králová</div>
+            <div class="participant">Mikuláš Kučera</div>
+            <div class="participant">Yurii Ketkov</div>
+            <div class="participant">Sebastian Glonek</div>
+            <div class="participant">Jan Slíva</div>
+        </section>
+
+        <span class="section-label">Fotky</span>
+        <section class="gallery-duo">
+            <div class="photo" onclick="openLightbox(0)" style="background-image: url('images/winners.jpg'); background-size: cover; background-position: center;"></div>
+            <div class="photo" onclick="openLightbox(1)" style="background-image: url('images/winners.jpeg'); background-size: cover; background-position: center;"></div>
+        </section>
+
+        <div class="download-zone">
+            <a href="images/integration.bee.pdf" class="text-link">Zadání příkladů 2025</a>
+            <a href="images/plakat.jpeg" class="text-link">Oficiální plakát ročníku 2025</a>
+        </div>
+    </div> 
+
+    <div id="lightbox" class="lb-overlay" onclick="closeLightbox(event)">
+        <button class="lb-btn lb-close" onclick="closeLightbox(event)">&times;</button>
+        <button class="lb-btn lb-prev" onclick="moveLightbox(-1, event)">&#10094;</button>
+        <img id="lb-canvas" class="lb-img" src="" alt="View">
+        <button class="lb-btn lb-next" onclick="moveLightbox(1, event)">&#10095;</button>
+    </div>
+
+    <footer>
+        <div class="footer-logo">Integration Bee FJFI 2025</div>
+        <div class="sponsors">
+            <span class="sponsor-name qminers">QMiners</span>
+            <span class="sponsor-name advacam">A D V A C A M</span>
+        </div>
+    </footer>
+
+    <script>
+        const imgSources = ['images/winners.jpg', 'images/winners.jpeg'];
+        let currentIdx = 0;
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-canvas');
+
+        function openLightbox(index) {
+            currentIdx = index;
+            lbImg.src = imgSources[currentIdx];
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(e) {
+            if (e.target === lb || e.target.classList.contains('lb-close')) {
+                lb.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function moveLightbox(step, e) {
+            e.stopPropagation();
+            currentIdx = (currentIdx + step + imgSources.length) % imgSources.length;
+            lbImg.src = imgSources[currentIdx];
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (!lb.classList.contains('active')) return;
+            if (e.key === "ArrowLeft") moveLightbox(-1, e);
+            if (e.key === "ArrowRight") moveLightbox(1, e);
+            if (e.key === "Escape") { lb.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        });
+    </script>
+
+</body>
+</html>
