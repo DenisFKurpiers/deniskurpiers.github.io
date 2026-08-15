@@ -2,3 +2,13 @@
     width: 268px;
     height: auto;
 }
+
+.ppl-photo1 {
+    max-width: 400px;
+    height: auto;
+}
+
+.ppl-photo2 {
+    max-width: 300px;
+    height: auto;
+}
