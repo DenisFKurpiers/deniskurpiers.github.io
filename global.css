@@ -8,7 +8,32 @@
     height: auto;
 }
 
-.ppl-photo2 {
-    width: 270px;
-    height: auto;
+.year-section {
+    margin-bottom: 2.5rem;
 }
+
+figure {
+    margin: 0;
+}
+
+.gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 0.5rem;
+}
+
+.pumpkin-photo {
+    width: 270px; /* Adjust this to match your preferred size */
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+figcaption {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #555;
+    margin-top: 0.2rem;
+}
+
