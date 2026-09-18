@@ -21,19 +21,19 @@ figure {
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 0.5rem;
-    align-items: flex-start; /* Prevents flexbox from stretching images to fill space */
+    align-items: flex-start;
 }
 
-/* This targets ALL images in the gallery, plus your old classes just in case */
+/* Forces same height, respects natural width */
 .gallery-images img,
 .pumpkin-photo,
 .gallery-photo {
-    width: 270px; /* Fixed width */
-    height: 270px; /* Fixed height for consistent, uniform squares */
+    height: 270px; /* Adjust this number to make the row taller or shorter */
+    width: auto;   /* Allows the image to keep its natural aspect ratio */
     max-width: 100%;
-    object-fit: cover; /* Crops the image perfectly to fit the box without squishing */
+    object-fit: cover; /* Prevents squeezing on narrow mobile screens */
     display: block;
-    border-radius: 4px; /* Optional: adds a slight softening to the edges */
+    border-radius: 4px;
 }
 
 figcaption {
