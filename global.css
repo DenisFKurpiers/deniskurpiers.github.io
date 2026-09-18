@@ -21,14 +21,19 @@ figure {
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 0.5rem;
+    align-items: flex-start; /* Prevents flexbox from stretching images to fill space */
 }
 
-/* This now applies to ALL images inside the gallery-images container */
-.gallery-images img {
-    width: 270px; 
+/* This targets ALL images in the gallery, plus your old classes just in case */
+.gallery-images img,
+.pumpkin-photo,
+.gallery-photo {
+    width: 270px; /* Fixed width */
+    height: 270px; /* Fixed height for consistent, uniform squares */
     max-width: 100%;
-    height: auto;
+    object-fit: cover; /* Crops the image perfectly to fit the box without squishing */
     display: block;
+    border-radius: 4px; /* Optional: adds a slight softening to the edges */
 }
 
 figcaption {
