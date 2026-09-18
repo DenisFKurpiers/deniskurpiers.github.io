@@ -23,8 +23,9 @@ figure {
     margin-bottom: 0.5rem;
 }
 
-.pumpkin-photo {
-    width: 270px; /* Adjust this to match your preferred size */
+/* This now applies to ALL images inside the gallery-images container */
+.gallery-images img {
+    width: 270px; 
     max-width: 100%;
     height: auto;
     display: block;
@@ -36,4 +37,3 @@ figcaption {
     color: #555;
     margin-top: 0.2rem;
 }
-
