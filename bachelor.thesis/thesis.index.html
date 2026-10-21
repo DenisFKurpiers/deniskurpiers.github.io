@@ -32,7 +32,7 @@
                 <h2>Literature Review & Initial Research</h2>
                 <p>
                     First, I was given this research paper: 
-                    <a href="https://www.academia.edu/16447957/Computing_Large_Deformation_Metric_Mappings_via_Geodesic_Flows_of_Diffeomorphisms" target="_blank" rel="noopener">Computing Large Deformation Metric Mappings via Geodesic Flows of Diffeomorphisms</a>, 
+                    <a href="https://www.academia.edu/16447957/Computing_Large_Deformation_Metric_Mappings_via_Geodesic_Flows_of_Diffeomorphisms" target="_blank" rel="noopener">Computing Large Deformation Metric Mappings via Geodesic Flows of Diffeomorphisms [1]</a>, 
                     with the words:
                 </p>
                 <blockquote style="font-style: italic; color: #555; border-left: 2px solid #ccc; padding-left: 10px;">
@@ -41,7 +41,7 @@
 
                 <p>
                     I ran it through Connected Papers and found an important predecessor: 
-                    <a href="https://www.semanticscholar.org/paper/Computational-anatomy%3A-an-emerging-discipline-Grenander-Miller/4ac97a1ec6a1f524f17da2818b6acdf237faad5d#related-papers" target="_blank" rel="noopener">Computational anatomy: an emerging discipline</a>.
+                    <a href="https://www.semanticscholar.org/paper/Computational-anatomy%3A-an-emerging-discipline-Grenander-Miller/4ac97a1ec6a1f524f17da2818b6acdf237faad5d#related-papers" target="_blank" rel="noopener">Computational anatomy: an emerging discipline [2]</a>.
                 </p>
 
                 <p>
@@ -63,7 +63,7 @@
                 <p>
                     I then tried to sketch out the historical context of computational anatomy and zoomed into what I assume is the topic of interest: <strong>Diffeomorphic Image Registration</strong>.
                 </p>
-                
+
                 <figure class="year-section">
                     <img src="images/historical-context-sketch.jpg" alt="Sketch of the historical context of computational anatomy" style="width: 100%; height: auto; max-width: 600px; border-radius: 4px;">
                     <figcaption>Sketching out the historical context and zooming in on Diffeomorphic Image Registration.</figcaption>
@@ -73,16 +73,17 @@
                     Staying with the topic of Diffeomorphic Image Registration, I tried to lay out the mathematical framework. To be discussed: <em>do I even understand the problem at hand?</em>
                 </p>
 
+                <h3>The Brown/Washington Model of Anatomy</h3>
                 <p>
-                    For brevity, I refer to "Computational anatomy: an emerging discipline" as <strong>OG</strong> (making the assumption it's the genesis paper) and "Computing Large Deformation Metric Mappings via Geodesic Flows of Diffeomorphisms" as <strong>PS</strong> (again making the assumption that it has been paradigm shifting). 
+                    The Brown/Washington model of anatomy as formalized in [2] is a quadruple \((\Omega, \mathcal{H}, \mathcal{I}, \mathcal{P})\), where the background space \(\Omega\) is defined as the union \(\Omega = \bigcup_{\alpha} M_{\alpha}\), where \(M_{\alpha}\) are 0, 1, 2, 3-dimensional manifolds, and \(\alpha \in I\), where \(I\) is the set of indexes. \(\mathcal{H}\) is the set of diffeomorphic transformations on the background space, \(\mathcal{H}: \Omega \leftrightarrow \Omega\). \(\mathcal{I}\) is the space of medical imagery and \(\mathcal{P}\) the set of probability measures on \(\mathcal{H}\).
                 </p>
 
                 <p>
-                    OG talks about the Brown/Washington model (is it still relevant? idk): we can model anatomy as a quadruple \((\Omega, \mathcal{H}, \mathcal{I}, \mathcal{P})\), where the background space \(\Omega\) is defined as the union \(\Omega = \bigcup_{\alpha} M_{\alpha}\), where \(M_{\alpha}\) are 0, 1, 2, 3-dimensional manifolds, and \(\alpha \in I\), where \(I\) is the set of indexes. \(\mathcal{H}\) is the set of diffeomorphic transformations on the background space, \(\mathcal{H}: \Omega \leftrightarrow \Omega\). \(\mathcal{I}\) is the space of medical imagery and \(\mathcal{P}\) the set of probability measures on \(\mathcal{H}\).
+                    If \(\mathcal{H}\) is constructed to be rich enough, we can operate under the basic assumption that there is essentially only one deformable template (\(I_{temp}\)), i.e., one anatomical ensemble \((\Omega, \mathcal{H}, \mathcal{I}, \mathcal{P})\), which forms a homogeneous space, or what is called <strong>homogeneous anatomy</strong>.
                 </p>
 
                 <p>
-                    OG notes that if \(\mathcal{H}\) is constructed to be rich enough (later mentioning an awesome dimension of \(10^7\)), we can operate under the basic assumption that there is essentially only one deformable template (\(I_{temp}\)), i.e., one anatomical ensemble \((\Omega, \mathcal{H}, \mathcal{I}, \mathcal{P})\), which forms a homogeneous space, or what they call <strong>homogeneous anatomy</strong>. 
+                    The basic property of this homogeneous anatomy is that it can be completely generated from one of its elements, defined as \(\mathcal{I} = \mathcal{H}I_{temp}\), \(I_{temp} \in \mathcal{I}\). In the homogeneous anatomy setting, all elements \(I \in \mathcal{I}\) are essentially the same modulo a diffeomorphism in \(\mathcal{H}\).
                 </p>
 
                 <blockquote style="background-color: #eef7f9; border-left: 4px solid #3b82f6; padding: 10px 15px; margin: 1.5rem 0; font-style: normal; border-radius: 0 4px 4px 0;">
@@ -90,40 +91,45 @@
                 </blockquote>
 
                 <p>
-                    The basic property of this homogeneous anatomy is that it can be completely generated from one of its elements, defined mathematically as \(\mathcal{I} = \mathcal{H}I_{temp}\), \(I_{temp} \in \mathcal{I}\). In the homogeneous anatomy setting, all elements \(I \in \mathcal{I}\) are essentially the same modulo a diffeomorphism in \(\mathcal{H}\). 
-                </p>
-
-                <p>
                     More generally, as for the disease state, an area that has received less attention than the study of normal anatomy, we shall require a family of templates \(\bigcup_{\alpha} I^{\alpha}_{temp}\) with perhaps varying dimensional transformation classes. The complete anatomy is built from collections of homogeneous spaces \(\mathcal{I}_{total} = \bigcup_{\alpha}(\mathcal{I}^{\alpha}, \mathcal{H}^{\alpha})\).
                 </p>
 
-                <div style="background-color: #fcfcfc; border: 1px solid #e5e7eb; border-left: 4px solid #6b7280; padding: 1.5rem; margin: 2rem 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                    <p style="font-family: serif; color: #374151; margin-top: 0;">
-                        <em>Within this framework, we see that there are three principal components to computational anatomy:</em>
-                    </p>
-                    <ol style="font-family: serif; color: #374151;">
-                        <li style="margin-bottom: 1rem;">
-                            <strong>Computation of large deformation maps:</strong> Given any two elements $I_n, I_m \in \mathcal{I}$ in the same homogeneous anatomy $(\Omega, \mathcal{H}, \mathcal{I}, \mathcal{P})$, compute diffeomorphisms $h$ with inverses $h^{-1} \doteq \phi$ from one anatomy to the other $I_n \underset{\phi_{nm} \doteq h_{nm}^{-1}}{\overset{h_{nm}}{\rightleftharpoons}} I_m$. This is the principal method by which anatomical structures are understood, transferring the emphasis from the images $I \in \mathcal{I}$ to the structural transformations that generate them.
-                        </li>
-                        <li style="margin-bottom: 1rem;">
-                            <strong>Computation of empirical probability laws:</strong> Assume we are given populations of anatomical imagery and diffeomorphisms between them $I_n \underset{\phi_{nm} \doteq h_{nm}^{-1}}{\overset{h_{nm}}{\rightleftharpoons}} I_m$, $n,m = 1, \dots, N \subset \mathcal{H}$. The second component of computational anatomy calculates probability laws $P \in \mathcal{P}$ on $\mathcal{H}$ which represent anatomical variation reflected by the observed population.
-                        </li>
-                        <li>
-                            <strong>Computational inference on population and disease testing and classification:</strong> Given an anatomical representation in the form of prior probability measures on the deformable template representing the anatomy, perform Bayesian classification and testing for disease and anomaly.
-                        </li>
-                    </ol>
-                </div>
+                <p>Within this framework, [2] argues that there are three usecases:</p>
+
+                <ol>
+                    <li><strong>Computation of large deformation maps:</strong> Computing diffeomorphisms \(\varphi\) from one anatomy \(I_n\) to \(I_m\), where \(I_n, I_m \in \mathcal{I}\).</li>
+                    <li><strong>Computation of empirical probability laws:</strong> Calculating the probability laws \(P \in \mathcal{P}\) on \(\mathcal{H}\), which represent anatomical variation.</li>
+                    <li><strong>Computational inference on population and disease testing and classification:</strong> Performing Bayesian classification and testing for anomaly, given prior probability measures.</li>
+                </ol>
 
                 <p>
-                    Within the frameworks of the PS paper, I only care about number (1): <strong>Computation of large deformation maps</strong> I think.
+                    Although I would like to explore more of the algebraic properties of the group action, I have an inkling my supervisor would rather see me spending time with (1).
                 </p>
-        
+
+                <h3>Large Deformation Maps</h3>
+                <p>
+                    Large deformation mapping, [2] argues, is the generation of bijective maps between templates and targets. These maps are preferably of high dimension, to accommodate the very finest details in variation in individual anatomy.
+                </p>
+
+                <p>
+                    These large deformation diffeomorphisms are constructed as the solution of an ordinary differential equation corresponding to the transport equation in mechanics. The deformation thus corresponds to flows.
+                </p>
+
+                <p>
+                    The purpose in constructing invertible maps is that they can be used to study the features of the target anatomies.
+                </p>
+
+                <h3>Transport Equations</h3>
+                <p>
+                    TBD
+                </p>
+
             </article>
          </section>
 
          <footer>2026 DFK</footer>
 
     </div><!--wrapper-->
-    
+
 </body>
 </html>
