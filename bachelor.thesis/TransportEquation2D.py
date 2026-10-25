@@ -16,8 +16,8 @@ from RungeKutta import RK_second_order
 from ODE.ODE import *
 
 # 2D, takze chci x,y, jinak anal.
-velocity_x = 7.0
-velocity_y = 4.0
+velocity_x = 3.0
+velocity_y = 3.0
 initial_time = 0.0
 final_time = 1
 size = 100
