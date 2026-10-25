@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -60,6 +59,7 @@
 
             <article>
                 <h2>Mathematical Framework</h2>
+                <p>
                     Starting out with the topic of Diffeomorphic Image Registration, I tried to lay out the mathematical framework. To be discussed: <em>do I even understand the problem at hand?</em>
                 </p>
 
@@ -123,11 +123,44 @@
 
                 <h4>The Method of Lines</h4>
                 <p>
-                    Instead of tackling space and time all at once, one could use (and I do use) the <strong>Method of Lines</strong>. This strategy slices physical space into a rigid matrix of discrete grid points, but leaves time continuous.
+                    Instead of tackling space and time all at once, I use the <strong>Method of Lines</strong>. This strategy slices physical space into a rigid matrix of discrete grid points, but leaves time continuous.
                 </p>
                 <p>
-                    By doing this, the complex PDE is fractured into ODEs. I essentially isolate the spatial derivative, calculating the momentary flow at every single grid coordinate \(u_{i, j}\) using approximations like finite differences, Lax-Friedrichs, or Upwind schemes. This leaves me with an ODE for every pixel: \(\frac{du_i}{dt} = f(t, u)\).
+                    By doing this, the PDE is fractured into ODEs. I essentially isolate the spatial derivative, calculating the momentary flow at every single grid coordinate \(u_{i, j}\) using approximations like finite differences, Lax-Friedrichs, or Upwind schemes. This leaves me with an ODE for every pixel: \(\frac{du_i}{dt} = f(t, u)\).
                 </p>
+                
+               <p>
+                    These approximations are our specific spatial discretization schemes:
+                </p>
+                <ul>
+                    <p>
+                    These approximations are our specific spatial discretization schemes. Based on the 1D code, here is how they are calculated:
+                </p>
+                <ul>
+                    <li>
+                        <strong>FDM (Central Difference):</strong> Looks at the neighbors on both sides to find the slope. Simple, but physically blind and highly prone to numerical instability.
+                        <br>
+                        <code>fu[i] = -velocity * (u[i + 1] - u[i - 1]) / (2 * self.h)</code>
+                    </li>
+                    <br>
+                    <li>
+                        <strong>Lax-Friedrichs:</strong> Takes the Central Difference but adds an artificial diffusion term. When time-stepped later, this stabilizes the simulation and prevents the math from blowing up into chaotic oscillations.
+                        <br>
+                        <code>fu[i] = -velocity * (u[i + 1] - u[i - 1]) / (2 * self.h) + (u[i + 1] - 2 * u[i] + u[i - 1]) / (2 * tau)</code>
+                    </li>
+                    <br>
+                    <li>
+                        <strong>Upwind:</strong> Dynamically checks the direction of the velocity (the "wind") and calculates the slope using only the pixel <em>behind</em> the current flow, preventing information from traveling backward against the current.
+                        <br>
+                        If <code>velocity > 0</code>:
+                        <br>
+                        <code>fu[i] = -velocity * (u[i] - u[i - 1]) / self.h</code>
+                        <br>
+                        Else:
+                        <br>
+                        <code>fu[i] = -velocity * (u[i + 1] - u[i]) / self.h</code>
+                    </li>
+                </ul>
                 
                 <h4>Euler</h4>
                 <p>
@@ -140,7 +173,9 @@
                 </p>
 
                 <h4>Code</h4>
-                I've been given the code for 1D transport equations and have virtually copied it and tweaked it to work in 2D. <a href="TransportEquation2D">Here it is</a>. Definitely out of my league here and need to start learning python asap. 
+                <p>
+                    I've been given the code for 1D transport equations and have virtually copied it and tweaked it to work in 2D. <a href="TransportEquation2D">Here it is</a>. Definitely out of my league here and need to start learning python asap. 
+                </p>
             </article>
          </section>
          <br>
