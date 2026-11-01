@@ -24,8 +24,9 @@
             <article>
                 <div style="padding: 1rem; border: 1px solid #ccc; color: #777; background: #fafafa; margin-bottom: 2rem;">
                     <h2>Current Status</h2>
-                    <p><strong>Total Time Spent:</strong> 20h</p>
-                    <p><strong>Status:</strong> I have hit a wall and do need new instructions.</p>
+                    <p><strong>Total Time Spent:</strong> 24h</p>
+                    <p><strong>Status:</strong> I have not hit a wall and do not need new instructions.</p>
+                    <p><strong> <a href="AdvectionEquation1D.py">Work to be read</a></strong></p>
                 </div>
 
                 <h2>Literature Review & Initial Research</h2>
@@ -111,42 +112,36 @@
 
                 <h3>Transport Equation</h3>
                 <p>
-                    As I dig into the actual computation of these mappings, I inevitably run into the Transport Equation. From my understanding, the transport equation models how a scalar quantity moves through space over time at a constant velocity \(\alpha\).
+                Looking at the computation of these mappings, one inevitably runs into the Transport Equation. 
+                </p>
+                <h4>Advection Equation</h4>
+                Crucially, this equation contains no diffusion terms, meaning the shape of the initial condition 
+                is preserved perfectly over time. 
                 </p>
                 <p>
                     In a 1D continuous space \(\mathbb{R}\), it looks a lot like this:
-                    $$ \frac{\partial u(\vec{x}, t)}{\partial t} + \alpha \frac{\partial u(\vec{x}, t)}{\partial x} = 0 $$
+                    $$ \frac{\partial u(x, t)}{\partial t} + \alpha \frac{\partial u(x, t)}{\partial x} = 0 $$
                 </p>
                 <p>
                     By rearranging this, we can see that the rate of change over time corresponds to the flow across space: \(\frac{\partial u}{\partial t} = -\alpha \frac{\partial u}{\partial x}\). Analytically, the exact solution is just a translation of the initial state: \(u(x, t) = u_{ini}(x - \alpha t)\). 
                 </p>
 
-                <h4>The Method of Lines</h4>
+                <h4>1. The Method of Lines</h4>
                 <p>
-                    Instead of tackling space and time all at once, I use the <strong>Method of Lines</strong>. This strategy slices physical space into a rigid matrix of discrete grid points, but leaves time continuous.
+                    Instead of dealing with space and time all at once, one can use the <strong>Method of Lines</strong>. This strategy makes physical space discrete slices physical space into coordinates, but leaves time continuous.
                 </p>
                 <p>
-                    By doing this, the PDE is fractured into ODEs. I essentially isolate the spatial derivative, calculating the momentary flow at every single grid coordinate \(u_{i, j}\) using approximations like finite differences, Lax-Friedrichs, or Upwind schemes. This leaves me with an ODE for every pixel: \(\frac{du_i}{dt} = f(t, u)\).
+                    By doing this, the PDE is fractured into ODEs. Essentially isolating the spatial derivative, calculating the momentary flow at every grid coordinate \(u_{i, j}\) using approximations like Finite Differences or Upwind schemes. This leaves me with an ODE for every pixel: \(\frac{du_i}{dt} = f(t, u)\), leaving the time-stepping to an independent ODE solver (like Euler or Runge-Kutta).
                 </p>
                 
                <p>
                     These approximations are our specific spatial discretization schemes:
                 </p>
                 <ul>
-                    <p>
-                    These approximations are our specific spatial discretization schemes. Based on the 1D code, here is how they are calculated:
-                </p>
-                <ul>
                     <li>
                         <strong>FDM (Central Difference):</strong> Looks at the neighbors on both sides to find the slope. Simple, but physically blind and highly prone to numerical instability.
                         <br>
                         <code>fu[i] = -velocity * (u[i + 1] - u[i - 1]) / (2 * self.h)</code>
-                    </li>
-                    <br>
-                    <li>
-                        <strong>Lax-Friedrichs:</strong> Takes the Central Difference but adds an artificial diffusion term. When time-stepped later, this stabilizes the simulation and prevents the math from blowing up into chaotic oscillations.
-                        <br>
-                        <code>fu[i] = -velocity * (u[i + 1] - u[i - 1]) / (2 * self.h) + (u[i + 1] - 2 * u[i] + u[i - 1]) / (2 * tau)</code>
                     </li>
                     <br>
                     <li>
@@ -161,21 +156,43 @@
                         <code>fu[i] = -velocity * (u[i + 1] - u[i]) / self.h</code>
                     </li>
                 </ul>
-                
-                <h4>Euler</h4>
-                <p>
-                    I'm using the <strong>Forward Euler Method</strong> .
-                    $$ u^{k+1}_i = u^k_i + \tau \cdot f(t, u) $$
+                <h4>2. Time Integration (ODE solvers)</h4>
+                <p>Once the Method of Lines generates the system of ODEs, we must use a time-integrator to step the simulation forward.
                 </p>
-                <h4>RungeKutta</h4>
-                <p>
-                    I could also use the Runge-Kutta equations, but I do not, because I dont understand them. Help needed here.
-                </p>
+                <ul>
+                    <li>
+                        <strong>Explicit Euler (1st Order):</strong> Calculates the slope at the current moment and steps forward blindly in a straight line.
+                        <p style="margin-left: 20px;">
+                            $$ k_1 = f(t, u^{old}) $$
+                            $$ u^{new} = u^{old} + \Delta t \cdot k_1 $$
+                        </p>
+                    </li>
+                    <li>
+                        <strong>Runge-Kutta (2nd order):</strong> Instead of stepping blindly, RK2 takes a hypothetical, temporary step forward to see how the slope will change, averages that future slope with the current slope, and adjusts the true step accordingly.
+                        <p style="margin-left: 20px;">
+                            $$ k_1 = f(t, u^{old}) $$
+                            $$ k_2 = f(t + \Delta t, u^{old} + \Delta t \cdot k_1) $$
+                            $$ u^{new} = u^{old} + \Delta t \frac{k_1 + k_2}{2} $$
+                        </p>
+                    </li>
+                </ul>
 
-                <h4>Code</h4>
+                <h4>3. Fully Discrete Schemes (Coupled Space-Time)</h4>
                 <p>
-                    I've been given the code for 1D transport equations and have virtually copied it and tweaked it to be 2D. <a href="TransportEquation2D.py">Here it is</a>. This only works for Euler. Definitely out of my league here and need to start learning python asap. 
-                </p>
+                    To avoid the instability of central differences without relying on complex ODE solvers, there are schemes that abandon the Method of Lines, instead calculating the spatial step (\(\Delta x\)) and the time step (\(\Delta t\)) simultaneously.
+                <ul>
+                    <li>
+                        <strong>Lax-Friedrichs (1st Order):</strong> Takes the unstable Central Difference and forcibly stabilizes it by adding an artificial diffusion term directly tied to the time step (\(\tau\)). 
+                    </li>
+                    <li>
+                        <strong>Lax-Wendroff (2nd Order):</strong> A higher-order method that successfully reduces diffusion, keeping wave fronts much sharper. However, it introduces <strong>dispersion</strong>, generating artificial mathematical oscillations (ripples) trailing behind sharp discontinuities.
+                    </li>
+                    <li>
+                        <strong>Beam-Warming (2nd Order):</strong> A one-sided, upwind-biased alternative to Lax-Wendroff that also achieves 2nd-order accuracy, though it generates dispersive ripples ahead of the wave instead of behind it.
+                    </li>
+                </ul>
+
+                <h4>4. High-Resolution Methods</h4>
             </article>
          </section>
          <br>
