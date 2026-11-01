@@ -112,12 +112,12 @@
 
                 <h3>Transport Equation</h3>
                 <p>
-                Looking at the computation of these mappings, one inevitably runs into the Transport Equation. 
+                Looking at the computation of these mappings, one inevitably runs into the Transport Equation. Below is the General Transport Equation (1D) with the Diffusion Term D and source term S omitted. From my understanding for LDDMs, we actively avoid them.
+                $$ \frac{\partial u(x, t)}{\partial t} + \frac{\partial vu(x, t)}{\partial x} = 0 $$
                 </p>
+
                 <h4>Advection Equation</h4>
-                Crucially, this equation contains no diffusion terms, meaning the shape of the initial condition 
-                is preserved perfectly over time. 
-                </p>
+                <p>Here v is constant</p>
                 <p>
                     In a 1D continuous space \(\mathbb{R}\), it looks a lot like this:
                     $$ \frac{\partial u(x, t)}{\partial t} + \alpha \frac{\partial u(x, t)}{\partial x} = 0 $$
@@ -125,6 +125,15 @@
                 <p>
                     By rearranging this, we can see that the rate of change over time corresponds to the flow across space: \(\frac{\partial u}{\partial t} = -\alpha \frac{\partial u}{\partial x}\). Analytically, the exact solution is just a translation of the initial state: \(u(x, t) = u_{ini}(x - \alpha t)\). 
                 </p>
+                <h4>Burgers Equation</h4>
+                <p>
+                   Introduces non-linearity by making the advection velocity equal to the state variable itself (\(u\)):
+                    $$ \frac{\partial u(x, t)}{\partial t} + u(x, t) \frac{\partial u(x, t)}{\partial x} = 0 $$
+                </p>
+                <p>
+                    This is a crucial stepping stone toward LDDMM. Because the velocity is no longer constant, different parts of the wave travel at different speeds. Faster-moving sections will catch up to slower-moving sections, causing the wave to steepen and actively deform over time.
+                </p>
+
 
                 <h4>1. The Method of Lines</h4>
                 <p>
