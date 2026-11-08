@@ -2,101 +2,99 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-# parametry
-velocity = 4.0
-initial_time = 0.0
-final_time = 1.0
-# pocet kousku
-size = 200
-# delka objektu
-L = 2.0
-# delka mezi dvema body
-h = L / (size - 1)                    
+#Parametrz
+velocity = 8
+t_start = 0.0
+t_end = 1.0
+#body
+nx = 200 
+#delka                     
+L = 2.0 
+#delka kousicku                    
+dx = L / (nx - 1)             
 
-# pocatecni podminky
-def set_initial_condition(size, h, condition_type="discontinuous"):
-    u = np.zeros(size)
-    for i in range(size):
-        x = i * h
+# Initial conditions
+def set_initial_condition(nx, dx, condition_type="discontinuous"):
+    q = np.zeros(nx)
+    for i in range(nx):
+        x = i * dx
         if condition_type == "discontinuous":
-            
-            u[i] = 1.0 if 0.4 < x < 0.6 else 0.0
+            q[i] = 1.0 if 0.4 < x < 0.6 else 0.0 
         elif condition_type == "continuous":
-            
-            u[i] = np.exp(-100 * (x - 0.5)**2)
-    return u
+            q[i] = np.exp(-100 * (x - 0.5)**2)
+    return q
 
-# du/dt = fu
-def function_f(t, u, size, h, velocity, scheme, tau):
-    fu = np.zeros(size)
+def compute_spatial_derivatives(t, q, nx, dx, velocity, scheme):
+    dqdt = np.zeros(nx)
     
-    # okrajovy podmínky (Dirichlet)
-    u[0] = 0.0
-    u[size - 1] = 0.0
-
     if scheme == "fdm":
-        for i in range(1, size - 1):
-            fu[i] = -velocity * (u[i + 1] - u[i - 1]) / (2 * h)
+        for i in range(1, nx - 1):
+            dqdt[i] = -velocity * (q[i + 1] - q[i - 1]) / (2 * dx)
+        dqdt[0] = 0.0
+        dqdt[nx - 1] = 0.0
                        
     elif scheme == "upwind":
-        for i in range(1, size - 1):
-            if velocity > 0:
-                fu[i] = -velocity * (u[i] - u[i - 1]) / h
-            else:
-                fu[i] = -velocity * (u[i + 1] - u[i]) / h
+        if velocity > 0:
+            for i in range(1, nx):
+                dqdt[i] = -velocity * (q[i] - q[i - 1]) / dx
+            dqdt[0] = 0.0
+        else:
+            for i in range(0, nx - 1):
+                dqdt[i] = -velocity * (q[i + 1] - q[i]) / dx
+            dqdt[nx - 1] = 0.0
                 
-    return fu
+    return dqdt
 
-def euler_step(t, u, size, h, velocity, scheme, tau):
-    fu = function_f(t, u, size, h, velocity, scheme, tau)
-    return u + tau * fu
+def euler_step(t, q, nx, dx, velocity, scheme, dt):
+    dqdt = compute_spatial_derivatives(t, q, nx, dx, velocity, scheme)
+    return q + dt * dqdt
 
-def solve_loop(initial_time, final_time, time_step, size, h, velocity, scheme, u_initial):
+def solve_loop(t_start, t_end, dt, nx, dx, velocity, scheme, q_initial):
     solution = []
-    current_time = initial_time
-    u_current = u_initial.copy()
+    current_time = t_start
+    q_current = q_initial.copy()
     
-    solution.append((current_time, u_current.copy()))
+    solution.append((current_time, q_current.copy()))
     
-    while current_time < final_time:
-        u_current = euler_step(current_time, u_current, size, h, velocity, scheme, time_step)
-        current_time += time_step
-        solution.append((current_time, u_current.copy()))
+    while current_time < t_end:
+        q_current = euler_step(current_time, q_current, nx, dx, velocity, scheme, dt)
+        current_time += dt
+        solution.append((current_time, q_current.copy()))
         
     return solution
 
-
 if __name__ == "__main__":
     scheme = "upwind"
-    cond_type = "continuous" 
+    cond_type = "discontinuous" 
     
-    integration_time_step = 0.1 * L / size
+    #natvrdo cfl
+    cfl_number = 1.0 #cfl=1 funguje perfektne, jeste aby ne
+    dt = cfl_number * dx / abs(velocity)
     
-    # Set up problem
-    u = set_initial_condition(size, h, condition_type=cond_type)
-    M = np.max(u) if np.max(u) > 0 else 1.0
+    q = set_initial_condition(nx, dx, condition_type=cond_type)
+    M = np.max(q) if np.max(q) > 0 else 1.0
     
     global_solution = solve_loop(
-        initial_time,
-        final_time,
-        integration_time_step,
-        size,
-        h,
+        t_start,
+        t_end,
+        dt,
+        nx,
+        dx,
         velocity,
         scheme,
-        u
+        q
     )
 
-    t_vals, u_vals = zip(*global_solution)
+    t_vals, q_vals = zip(*global_solution)
     fig, ax = plt.subplots()
-    (line,) = ax.plot(np.linspace(0, L, size), u_vals[0])
+    (line,) = ax.plot(np.linspace(0, L, nx), q_vals[0])
     ax.set_ylim(-0.1, 1.2 * M)
     ax.set_xlabel("Position")
-    ax.set_ylabel("Mass")
+    ax.set_ylabel("Mass / State (q)")
 
     def animate(i):
-        line.set_ydata(u_vals[i])
+        line.set_ydata(q_vals[i])
         return (line,)
 
-    ani = animation.FuncAnimation(fig, animate, frames=len(t_vals), interval=50, blit=True)
+    ani = animation.FuncAnimation(fig, animate, frames=len(t_vals), interval=30, blit=True)
     plt.show()
