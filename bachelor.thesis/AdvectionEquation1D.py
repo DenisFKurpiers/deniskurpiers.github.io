@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-#Parametrz
+#Parametry
 velocity = 8
 t_start = 0.0
 t_end = 1.0
