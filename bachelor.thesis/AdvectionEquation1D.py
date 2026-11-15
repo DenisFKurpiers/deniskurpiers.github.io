@@ -65,7 +65,7 @@ def solve_loop(t_start, t_end, dt, nx, dx, velocity, scheme, q_initial):
 
 if __name__ == "__main__":
     scheme = "upwind"
-    cond_type = "discontinuous" 
+    cond_type = "continuous" 
     
     #natvrdo cfl
     cfl_number = 1.0 #cfl=1 funguje perfektne, jeste aby ne
